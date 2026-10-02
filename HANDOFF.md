@@ -19,7 +19,7 @@ and five permit cards: building, starting a business, food business, land and zo
 clearing or septic. Each has 3-4 steps and an agency link.
 
 ## Known gaps (fix first)
-- Agency links and steps are illustrative guesses, NOT verified against current Guam rules.
+- DONE 2026-10-02: links verified and deep-linked (DPW BLPC, DLM Planning, Guam EPA forms/portal/septic, DRT). DPHSS returns 403 to this machine (curl and browser); DEH link sourced from search, recheck from Guam.
   Unverified: dpw.guam.gov, dphss.guam.gov, dlm.guam.gov, epa.guam.gov, guamtax.com.
   Check each URL resolves and points to the real permit page.
 - Real content should come from Adam's dad: which permits people actually get stuck on.
@@ -29,3 +29,6 @@ clearing or septic. Each has 3-4 steps and an agency link.
 - Deploy production only from a clean, pushed commit.
 - Vercel CLI on this machine: needs `--scope adamtpangs-projects`; it may crash on exit with a
   libuv assertion even when it succeeded, so check the live URL afterwards.
+
+## Status
+PICKED UP 2026-10-02, by Claude Code session in guamgov
