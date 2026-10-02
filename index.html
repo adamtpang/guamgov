@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guam Permits Guide (unofficial demo)</title>
+<meta name="description" content="An unofficial demo of a plain-language guide to Guam permits, modeled on PermitSF. Not a Government of Guam website.">
+<style>
+:root{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--bg:#f8fafc;--accent:#0e7490}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg)}
+.demo{background:#fef3c7;border-bottom:1px solid #fcd34d;padding:10px 20px;font-size:14px;text-align:center}
+header,main,footer{max-width:960px;margin:0 auto;padding:0 20px}
+header{padding-top:40px}h1{font-size:2.2rem;margin:0 0 8px}header p{color:var(--muted);margin:0 0 24px;max-width:640px}
+input{width:100%;padding:14px 16px;font-size:1rem;border:1px solid var(--line);border-radius:10px;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
+.card h2{font-size:1.1rem;margin:0 0 6px}.card p{color:var(--muted);margin:0 0 12px;font-size:.95rem}
+.card ol{margin:0 0 12px;padding-left:20px;font-size:.92rem}.card a{color:var(--accent);font-weight:600;text-decoration:none}
+footer{color:var(--muted);font-size:.85rem;padding:40px 20px}
+</style>
+<script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
+</head>
+<body>
+<div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
+<header>
+<h1>What permit do you need on Guam?</h1>
+<p>One plain-language starting point for building, business, and environmental permits, so you know which office to go to and what to bring.</p>
+<input id="q" type="search" placeholder="Search: house, fence, food truck, business license..." aria-label="Search permits">
+</header>
+<main><div class="grid" id="cards">
+<div class="card" data-k="build house renovation addition fence deck roof construction"><h2>Building a house, addition, or fence</h2><p>Most new construction and major renovation needs a building permit.</p><ol><li>Get your lot and zoning confirmed</li><li>Prepare plans (licensed designer for larger work)</li><li>Submit to Public Works for plan review</li><li>Schedule inspections as work progresses</li></ol><a href="https://dpw.guam.gov/" target="_blank" rel="noopener">Department of Public Works &rarr;</a></div>
+<div class="card" data-k="business license shop store start company sell"><h2>Starting a business</h2><p>A business license is the usual first step for selling goods or services.</p><ol><li>Register your business name</li><li>Apply for a business license and tax registration</li><li>Check if your activity needs extra clearances</li></ol><a href="https://www.guamtax.com/" target="_blank" rel="noopener">Department of Revenue and Taxation &rarr;</a></div>
+<div class="card" data-k="food truck restaurant kitchen health sanitary"><h2>Food business or food truck</h2><p>Food sales usually need a health or sanitary permit on top of the business license.</p><ol><li>Get your business license</li><li>Apply for a sanitary permit and inspection</li><li>Food handler training for staff</li></ol><a href="https://dphss.guam.gov/" target="_blank" rel="noopener">Public Health and Social Services &rarr;</a></div>
+<div class="card" data-k="land survey zoning subdivision lot property"><h2>Land, zoning, and surveys</h2><p>Zoning questions, land records, and subdivision go through land management.</p><ol><li>Look up your lot and zoning</li><li>Request records or a survey review</li><li>Apply for a zone change or variance if needed</li></ol><a href="https://dlm.guam.gov/" target="_blank" rel="noopener">Department of Land Management &rarr;</a></div>
+<div class="card" data-k="environment clearing grading wastewater septic earth moving"><h2>Clearing, grading, or septic</h2><p>Earth moving, clearing land, and wastewater systems need environmental review.</p><ol><li>Describe the site and the work</li><li>Apply for the matching environmental permit</li><li>Follow erosion and runoff controls</li></ol><a href="https://epa.guam.gov/" target="_blank" rel="noopener">Guam Environmental Protection Agency &rarr;</a></div>
+</div></main>
+<footer>Demo built to show what a single permit guide for Guam could look like, inspired by PermitSF. Agency links and steps are illustrative and may be out of date.</footer>
+<script>
+const q=document.getElementById('q'),cards=[...document.querySelectorAll('.card')];
+q.addEventListener('input',()=>{const t=q.value.toLowerCase().trim();cards.forEach(c=>{c.hidden=t&&!(c.dataset.k+' '+c.textContent.toLowerCase()).includes(t)})});
+</script>
+</body>
+</html>
