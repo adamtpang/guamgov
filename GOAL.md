@@ -9,7 +9,7 @@ honest. Accuracy is flagged, not perfected.
    - Food truck (done)
    - Typhoon repair (done, round 1)
    - Build a house, addition, or fence (done, round 2)
-   - Clear and grade a lot (Guam EPA, plus septic)
+   - Clear and grade a lot (done, round 3)
 2. Every step links to an official source. Every link is checked each round,
    and a broken link is fixed or flagged.
 3. Anything not confirmed from a primary source goes in a yellow "Not yet
@@ -41,3 +41,5 @@ When 1-6 hold, or only questions for Dad remain: stop and report.
   take after a big storm? Did DPW fast-track repair permits after Mawar?
 - Build: typical total cost and wait for a house permit? Fence height and
   setback limits? Which inspections does DPW require for a home?
+- Clearing: fees for a typical residential lot? Are the EPA and DPW permits
+  still separate? How long do the six agency sign-offs take?
