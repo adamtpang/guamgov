@@ -4,40 +4,108 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guam Permits Guide (unofficial demo)</title>
-<meta name="description" content="An unofficial demo of a plain-language guide to Guam permits, modeled on PermitSF. Not a Government of Guam website.">
-<style>
-:root{--ink:#0f172a;--muted:#475569;--line:#e2e8f0;--bg:#f8fafc;--accent:#0e7490}
-*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--bg)}
-.demo{background:#fef3c7;border-bottom:1px solid #fcd34d;padding:10px 20px;font-size:14px;text-align:center}
-header,main,footer{max-width:960px;margin:0 auto;padding:0 20px}
-header{padding-top:40px}h1{font-size:2.2rem;margin:0 0 8px}header p{color:var(--muted);margin:0 0 24px;max-width:640px}
-input{width:100%;padding:14px 16px;font-size:1rem;border:1px solid var(--line);border-radius:10px;margin-bottom:28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
-.card h2{font-size:1.1rem;margin:0 0 6px}.card p{color:var(--muted);margin:0 0 12px;font-size:.95rem}
-.card ol{margin:0 0 12px;padding-left:20px;font-size:.92rem}.card a{color:var(--accent);font-weight:600;text-decoration:none}
-footer{color:var(--muted);font-size:.85rem;padding:40px 20px}
-</style>
+<meta name="description" content="An unofficial demo of a plain-language guide to Guam permits, modeled on PermitSF and America.gov. Not a Government of Guam website.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
 </head>
 <body>
 <div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
-<header>
-<h1>What permit do you need on Guam?</h1>
-<p>One plain-language starting point for building, business, and environmental permits, so you know which office to go to and what to bring.</p>
-<input id="q" type="search" placeholder="Search: house, fence, food truck, business license..." aria-label="Search permits">
-</header>
-<main><div class="grid" id="cards">
-<div class="card" data-k="build house renovation addition fence deck roof construction"><h2>Building a house, addition, or fence</h2><p>Building permits are filed at the Business License and Permit Center (BLPC) at Public Works, a one-stop desk shared by DPW, DLM, DPHSS, Guam EPA and Rev &amp; Tax.</p><ol><li>Confirm your lot and zoning with Land Management</li><li>Prepare plans (licensed designer for larger work)</li><li>File the building permit at the BLPC, where each agency signs off on its clearance</li><li>Schedule DPW building inspections as work progresses</li></ol><a href="https://dpw.guam.gov/blpc/" target="_blank" rel="noopener">DPW Business License and Permit Center &rarr;</a></div>
-<div class="card" data-k="business license shop store start company sell"><h2>Starting a business</h2><p>Business licenses are issued or renewed at the same BLPC hub, where Rev &amp; Tax handles licensing and tax registration.</p><ol><li>Apply for a business license at the BLPC</li><li>Get any clearances your activity needs (health, EPA, zoning)</li><li>Register for taxes with Rev &amp; Tax</li></ol><a href="https://dpw.guam.gov/blpc/" target="_blank" rel="noopener">Business License and Permit Center &rarr;</a> &middot; <a href="https://www.guamtax.com/" target="_blank" rel="noopener">Rev &amp; Tax &rarr;</a></div>
-<div class="card" data-k="food truck restaurant kitchen health sanitary vendor event"><h2>Food business or food truck</h2><p>Restaurants, food trucks, and temporary event food sellers all need a sanitary permit from DPHSS Environmental Health, issued after plan review and inspection.</p><ol><li>Get your business license</li><li>Apply for a sanitary permit (DEH, 2nd floor, Central Public Health, Mangilao)</li><li>Pass the DEH inspection</li><li>Staff get a health certificate (food safety course)</li></ol><a href="/food-truck">Full food truck route &rarr;</a> &middot; <a href="https://dphss.guam.gov/dphss-divisions/division-environmental-health-deh" target="_blank" rel="noopener">DPHSS Environmental Health &rarr;</a></div>
-<div class="card" data-k="land survey zoning subdivision lot property"><h2>Land, zoning, and surveys</h2><p>DLM's Division of Planning supports the Guam Land Use Commission and reviews permit clearances.</p><ol><li>Look up your lot and zoning</li><li>Request records or a survey review</li><li>Apply for a zone change or variance through Planning if needed</li></ol><a href="https://dlm.guam.gov/division-of-planning/" target="_blank" rel="noopener">DLM Division of Planning &rarr;</a></div>
-<div class="card" data-k="environment clearing grubbing grading stockpiling soil wastewater septic earth moving"><h2>Clearing, grading, or septic</h2><p>Guam EPA issues the Clearing, Grubbing, Grading and Stockpiling permit and sets septic rules (updated July 2024 under P.L. 37-105).</p><ol><li>Find the form for your work type</li><li>Apply online through the Guam EPA permit portal</li><li>For septic, read the 2024 requirements first</li></ol><a href="https://epa.guam.gov/applications/" target="_blank" rel="noopener">Guam EPA forms &rarr;</a> &middot; <a href="https://permits.epa.guam.gov/" target="_blank" rel="noopener">Apply online &rarr;</a> &middot; <a href="https://epa.guam.gov/toilets/" target="_blank" rel="noopener">Septic rules &rarr;</a></div>
-</div></main>
-<footer>Demo built to show what a single permit guide for Guam could look like, inspired by PermitSF. Agency links checked 2 Oct 2026. Steps are summarized from agency pages and may change, so confirm with the agency before you apply.</footer>
+<div class="wrap">
+<nav class="nav"><a class="brand" href="/">Guam Permits</a><a class="pill" href="#all">All permits</a></nav>
+
+<section class="hero">
+<h1>Håfa adai, Guam</h1>
+<p class="lede">Whatever you need to build, open, or clear, start here. One plain-language route to the right office.</p>
+<form class="ask" id="askf" onsubmit="return false">
+<input id="q" type="search" autocomplete="off" placeholder="Describe what you need" aria-label="Describe what you need">
+<button type="submit" aria-label="Search">&rarr;</button>
+</form>
+<div class="tries" id="tries">
+<button type="button">I want to start a food truck</button>
+<button type="button">Build a fence or addition</button>
+<button type="button">Clear and grade my lot</button>
+<button type="button">Open a small business</button>
+<button type="button">Sell food at a fiesta</button>
+<button type="button">Check my zoning</button>
+</div>
+</section>
+
+<section class="sec" id="all">
+<h2 class="big">Start with what you want to do</h2>
+<p class="sub">Each route shows the office, the forms, and the order. Links were checked 2 Oct 2026.</p>
+<div class="grid" id="cards">
+
+<article class="card" data-k="food truck restaurant kitchen health sanitary vendor event fiesta sell food">
+<span class="tag">Full route</span><div class="ico">🚚</div>
+<h3>Start a food truck or food business</h3>
+<p>Business license, agency clearances, sanitary permit, health certificates, and fire, in order.</p>
+<ol><li>Business license (Form BL-01)</li><li>Clearances routed by Rev &amp; Tax</li><li>Sanitary permit and inspection</li><li>Health certificates for staff</li></ol>
+<div class="go"><a class="primary" href="/food-truck">See the full route &rarr;</a></div>
+</article>
+
+<article class="card" data-k="build house renovation addition fence deck roof construction typhoon repair">
+<div class="ico">🏠</div>
+<h3>Build a house, addition, or fence</h3>
+<p>Building permits are filed at the Business License and Permit Center at Public Works, where DPW, DLM, DPHSS, Guam EPA and Rev &amp; Tax all sign off.</p>
+<ol><li>Confirm your lot and zoning</li><li>Prepare plans</li><li>File at the permit center</li><li>Schedule DPW inspections</li></ol>
+<div class="go"><a class="sec2" href="https://dpw.guam.gov/blpc/" target="_blank" rel="noopener">Permit center &rarr;</a></div>
+</article>
+
+<article class="card" data-k="business license shop store start company sell open small business">
+<div class="ico">🏪</div>
+<h3>Open a small business</h3>
+<p>Licenses are issued at the same permit center. Rev &amp; Tax sends your application to each agency that must clear it.</p>
+<ol><li>File Form BL-01</li><li>Get any clearances your activity needs</li><li>Pay and pick up your license</li></ol>
+<div class="go"><a class="sec2" href="https://www.govguamdocs.com/revtax/docs/PROCEDURESANDREQUIREMENTSFORNEWBL.pdf" target="_blank" rel="noopener">How to apply &rarr;</a><a class="sec2" href="https://www.guamtax.com/" target="_blank" rel="noopener">Rev &amp; Tax &rarr;</a></div>
+</article>
+
+<article class="card" data-k="land survey zoning subdivision lot property variance check my zoning">
+<div class="ico">🗺️</div>
+<h3>Land, zoning, and surveys</h3>
+<p>DLM's Division of Planning supports the Guam Land Use Commission and reviews permit clearances.</p>
+<ol><li>Look up your lot and zoning</li><li>Request records or a survey review</li><li>Apply for a zone change or variance</li></ol>
+<div class="go"><a class="sec2" href="https://dlm.guam.gov/division-of-planning/" target="_blank" rel="noopener">DLM Planning &rarr;</a></div>
+</article>
+
+<article class="card" data-k="environment clearing grubbing grading stockpiling soil wastewater septic earth moving clear lot">
+<div class="ico">🌿</div>
+<h3>Clear, grade, or install septic</h3>
+<p>Guam EPA issues the Clearing, Grubbing, Grading and Stockpiling permit and sets septic rules (updated July 2024).</p>
+<ol><li>Find the form for your work</li><li>Apply on the EPA portal</li><li>For septic, read the 2024 rules first</li></ol>
+<div class="go"><a class="sec2" href="https://permits.epa.guam.gov/" target="_blank" rel="noopener">Apply online &rarr;</a><a class="sec2" href="https://epa.guam.gov/applications/" target="_blank" rel="noopener">Forms &rarr;</a><a class="sec2" href="https://epa.guam.gov/toilets/" target="_blank" rel="noopener">Septic &rarr;</a></div>
+</article>
+
+</div>
+<p class="none" id="none">No route for that yet. Try "food truck", "fence", or "zoning".</p>
+</section>
+
+<section class="sec">
+<div class="band">
+<h2>Many offices. One starting point.</h2>
+<p>No more guessing which department, which form, or which window. Plain steps, real links, in the order you need them.</p>
+</div>
+</section>
+
+<section class="sec three">
+<div><h3>Official sources only</h3><p>Every step links to the agency page or form it came from.</p></div>
+<div><h3>Honest about gaps</h3><p>Anything not yet confirmed is marked, so you know what to ask at the counter.</p></div>
+<div><h3>Built for your phone</h3><p>No app, no login. Open it anywhere on island.</p></div>
+</section>
+
+<footer>An unofficial demo of a single permit guide for Guam, inspired by PermitSF and America.gov. Steps are summarized from agency pages and may change, so confirm with the agency before you apply. Not legal advice.</footer>
+</div>
 <script>
-const q=document.getElementById('q'),cards=[...document.querySelectorAll('.card')];
-q.addEventListener('input',()=>{const t=q.value.toLowerCase().trim();cards.forEach(c=>{c.hidden=t&&!(c.dataset.k+' '+c.textContent.toLowerCase()).includes(t)})});
+const q=document.getElementById('q'),cards=[...document.querySelectorAll('.card')],none=document.getElementById('none');
+const stop=new Set('i a an to my the want need do how start get open for of and or at in on is it me can with'.split(' '));
+const vocab=c=>(c.dataset.k+' '+c.querySelector('h3').textContent).toLowerCase().split(/[^a-z]+/);
+function filter(){const words=q.value.toLowerCase().split(/[^a-z]+/).filter(w=>w.length>1&&!stop.has(w));let shown=0;
+cards.forEach(c=>{const v=vocab(c);const hit=!words.length||words.some(w=>v.some(t=>t.startsWith(w)));c.hidden=!hit;if(hit)shown++});
+none.style.display=shown?'none':'block'}
+q.addEventListener('input',filter);
+document.getElementById('askf').addEventListener('submit',()=>{filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})});
+document.querySelectorAll('#tries button').forEach(b=>b.onclick=()=>{q.value=b.textContent;filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})});
 </script>
 </body>
 </html>
