@@ -8,7 +8,7 @@ honest. Accuracy is flagged, not perfected.
 1. Four complete routes, each a page like `food-truck.html`:
    - Food truck (done)
    - Typhoon repair (done, round 1)
-   - Build a house, addition, or fence
+   - Build a house, addition, or fence (done, round 2)
    - Clear and grade a lot (Guam EPA, plus septic)
 2. Every step links to an official source. Every link is checked each round,
    and a broken link is fixed or flagged.
@@ -39,3 +39,5 @@ When 1-6 hold, or only questions for Dad remain: stop and report.
 - Which permits do people actually get stuck on?
 - Typhoon: what does a typical roof repair permit cost, and how long does it
   take after a big storm? Did DPW fast-track repair permits after Mawar?
+- Build: typical total cost and wait for a house permit? Fence height and
+  setback limits? Which inspections does DPW require for a home?
