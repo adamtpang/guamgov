@@ -81,3 +81,5 @@ a{color:var(--accent)}
 
 footer{color:var(--muted);font-size:.85rem;padding:48px 0 64px;border-top:1px solid var(--line);margin-top:48px}
 @media (max-width:560px){.hero{padding:44px 0 28px}.band{padding:36px 20px}.steps>li{padding-left:56px}}
+.brand{display:inline-flex;align-items:center;gap:10px}
+.brand .flag{display:block;width:30px;height:auto;border-radius:3px;box-shadow:0 0 0 1px rgba(0,12,31,.08)}
