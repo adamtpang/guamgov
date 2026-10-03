@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guam Permits Guide (unofficial demo)</title>
-<meta name="description" content="An unofficial demo of a plain-language guide to Guam permits, modeled on PermitSF and America.gov. Not a Government of Guam website.">
+<title>GuamGov (unofficial demo)</title>
+<meta name="description" content="An unofficial demo of one plain-language front door to Government of Guam services, modeled on America.gov and PermitSF. Not a Government of Guam website.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -15,36 +15,26 @@
 <body>
 <div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
 <div class="wrap">
-<nav class="nav"><a class="brand" href="/"><img class="flag" src="flag.svg" width="30" height="16" alt="">Guam Permits</a><a class="pill" href="#all">All permits</a></nav>
+<nav class="nav"><a class="brand" href="/"><img class="flag" src="flag.svg" width="30" height="16" alt="">GuamGov<span class="demo-pill">Demo</span></a>
+<span class="navlinks"><a class="hide-sm" href="/how-it-works">How it works</a><a class="pill" href="#all">Browse all</a></span></nav>
 
 <section class="hero">
 <h1>Håfa adai, Guam</h1>
-<p class="lede">Whatever you need to build, open, or clear, start here. One plain-language route to the right office.</p>
-<form class="ask" id="askf" onsubmit="return false">
+<p class="lede">Whatever you need from government, start here.</p>
+<form class="ask" id="askf" onsubmit="return false" role="search">
 <input id="q" type="search" autocomplete="off" placeholder="Describe what you need" aria-label="Describe what you need">
 <button type="submit" aria-label="Search">&rarr;</button>
 </form>
-<div class="tries" id="tries">
-<button type="button">I want to start a food truck</button>
-<button type="button">Build a fence or addition</button>
-<button type="button">Clear and grade my lot</button>
-<button type="button">Open a small business</button>
-<button type="button">Sell food at a fiesta</button>
-<button type="button">Check my zoning</button>
-<button type="button">Fix my roof after a typhoon</button>
-</div>
+<p class="try" aria-live="polite">Try &lsquo;<button type="button" id="tryb">I want to start a food truck</button>&rsquo;</p>
 </section>
 
-<section class="sec" id="all">
-<h2 class="big">Start with what you want to do</h2>
-<p class="sub">Each route shows the office, the forms, and the order. Links were checked 2 Oct 2026.</p>
+<section class="sec" id="all" style="padding-top:24px">
 <div class="grid" id="cards">
 
 <article class="card" data-k="food truck restaurant kitchen health sanitary vendor event fiesta sell food">
 <span class="tag">Full route</span><div class="ico">🚚</div>
 <h3>Start a food truck or food business</h3>
 <p>Business license, agency clearances, sanitary permit, health certificates, and fire, in order.</p>
-<ol><li>Business license (Form BL-01)</li><li>Clearances routed by Rev &amp; Tax</li><li>Sanitary permit and inspection</li><li>Health certificates for staff</li></ol>
 <div class="go"><a class="primary" href="/food-truck">See the full route &rarr;</a></div>
 </article>
 
@@ -52,71 +42,103 @@
 <span class="tag">Full route</span><div class="ico">🌀</div>
 <h3>Repair typhoon damage</h3>
 <p>When an owner's roof or nonstructural repair needs no permit at all, and how to apply when it does.</p>
-<ol><li>Check the 25% repair rules</li><li>Hire a licensed contractor</li><li>Apply for the building permit</li><li>Pass DPW inspection</li></ol>
 <div class="go"><a class="primary" href="/typhoon-repair">See the full route &rarr;</a></div>
 </article>
 
 <article class="card" data-k="build house renovation addition fence deck construction home permit plans">
 <span class="tag">Full route</span><div class="ico">🏠</div>
 <h3>Build a house, addition, or fence</h3>
-<p>Building permits are filed at the Business License and Permit Center at Public Works, where DPW, DLM, DPHSS, Guam EPA and Rev &amp; Tax all sign off.</p>
-<ol><li>Confirm your lot and zoning</li><li>Prepare plans and a plot plan</li><li>File the DPW permit application</li><li>Pass inspections, get occupancy</li></ol>
+<p>Zoning, plans and plot plan, the DPW application, fees, inspections, and your certificate of occupancy.</p>
 <div class="go"><a class="primary" href="/build">See the full route &rarr;</a></div>
-</article>
-
-<article class="card" data-k="business license shop store start company sell open small business">
-<div class="ico">🏪</div>
-<h3>Open a small business</h3>
-<p>Licenses are issued at the same permit center. Rev &amp; Tax sends your application to each agency that must clear it.</p>
-<ol><li>File Form BL-01</li><li>Get any clearances your activity needs</li><li>Pay and pick up your license</li></ol>
-<div class="go"><a class="sec2" href="https://www.govguamdocs.com/revtax/docs/PROCEDURESANDREQUIREMENTSFORNEWBL.pdf" target="_blank" rel="noopener">How to apply &rarr;</a><a class="sec2" href="https://www.guamtax.com/" target="_blank" rel="noopener">Rev &amp; Tax &rarr;</a></div>
-</article>
-
-<article class="card" data-k="land survey zoning subdivision lot property variance check my zoning">
-<div class="ico">🗺️</div>
-<h3>Land, zoning, and surveys</h3>
-<p>DLM's Division of Planning supports the Guam Land Use Commission and reviews permit clearances.</p>
-<ol><li>Look up your lot and zoning</li><li>Request records or a survey review</li><li>Apply for a zone change or variance</li></ol>
-<div class="go"><a class="sec2" href="https://dlm.guam.gov/division-of-planning/" target="_blank" rel="noopener">DLM Planning &rarr;</a></div>
 </article>
 
 <article class="card" data-k="environment clearing grubbing grading stockpiling soil wastewater septic earth moving clear lot">
 <span class="tag">Full route</span><div class="ico">🌿</div>
 <h3>Clear, grade, or install septic</h3>
-<p>Guam EPA and DPW permits, six agency sign-offs, and the 2024 septic rules (no more hollow-block tanks).</p>
-<ol><li>Apply to Guam EPA</li><li>Get the DPW clearing and grading permit</li><li>Follow the 2024 septic rules</li><li>Burning permit if you burn brush</li></ol>
+<p>Guam EPA and DPW permits, six agency sign-offs, and the 2024 septic rules.</p>
 <div class="go"><a class="primary" href="/clear-grade">See the full route &rarr;</a></div>
 </article>
 
+<article class="card" data-k="business license shop store company sell open small renew">
+<div class="ico">🏪</div>
+<h3>Open or renew a business license</h3>
+<p>File Form BL-01 with Rev &amp; Tax, which routes it to every agency that must clear it. Renewals can be done online.</p>
+<div class="go"><a class="sec2" href="https://www.govguamdocs.com/revtax/docs/PROCEDURESANDREQUIREMENTSFORNEWBL.pdf" target="_blank" rel="noopener">How to apply &rarr;</a><a class="sec2" href="https://www.guamtax.com/efile/biz.html" target="_blank" rel="noopener">Renew online &rarr;</a></div>
+</article>
+
+<article class="card" data-k="land survey zoning subdivision lot property variance check zoning">
+<div class="ico">🗺️</div>
+<h3>Land, zoning, and surveys</h3>
+<p>DLM's Division of Planning supports the Guam Land Use Commission and reviews permit clearances.</p>
+<div class="go"><a class="sec2" href="https://dlm.guam.gov/division-of-planning/" target="_blank" rel="noopener">DLM Planning &rarr;</a></div>
+</article>
+
 </div>
-<p class="none" id="none">No route for that yet. Try "food truck", "fence", or "zoning".</p>
+
+<h2 class="big" style="margin-top:56px;font-size:clamp(1.8rem,4vw,2.6rem)">Other things people do</h2>
+<div class="svcgrid" id="svcs" style="margin-top:20px">
+<a class="svc" data-k="driver license id renew real dmv car" href="https://myid.guam.gov/" target="_blank" rel="noopener"><span class="si">🪪</span><span><b>Renew a driver's license or ID</b><small>Guam online renewal and appointments</small></span></a>
+<a class="svc" data-k="pay bill fee payment government" href="https://pay.guam.gov/" target="_blank" rel="noopener"><span class="si">💳</span><span><b>Pay a government bill</b><small>PayGuam online payments</small></span></a>
+<a class="svc" data-k="typhoon emergency disaster storm shelter alert civil defense" href="https://ghs.guam.gov/" target="_blank" rel="noopener"><span class="si">🚨</span><span><b>Typhoon and emergency updates</b><small>Homeland Security / Civil Defense</small></span></a>
+<a class="svc" data-k="job work labor employment hire" href="https://dol.guam.gov/" target="_blank" rel="noopener"><span class="si">💼</span><span><b>Find work or labor help</b><small>Department of Labor</small></span></a>
+<a class="svc" data-k="school education student enroll" href="https://gdoe.net/" target="_blank" rel="noopener"><span class="si">🎒</span><span><b>Public schools</b><small>Guam Department of Education</small></span></a>
+<a class="svc" data-k="power electric bill outage" href="https://www.guampowerauthority.com/" target="_blank" rel="noopener"><span class="si">⚡</span><span><b>Power service and outages</b><small>Guam Power Authority</small></span></a>
+<a class="svc" data-k="contractor license verify check" href="https://clb.guam.gov/contractors-listing/" target="_blank" rel="noopener"><span class="si">🔎</span><span><b>Check a contractor's license</b><small>Contractors License Board</small></span></a>
+<a class="svc" data-k="tax taxes return revenue" href="https://www.guamtax.com/" target="_blank" rel="noopener"><span class="si">🧾</span><span><b>Taxes</b><small>Department of Revenue and Taxation</small></span></a>
+</div>
+<p class="none" id="none">Nothing for that yet. Try &ldquo;food truck&rdquo;, &ldquo;typhoon&rdquo;, or &ldquo;license&rdquo;.</p>
 </section>
 
-<section class="sec">
-<div class="band">
-<h2>Many offices. One starting point.</h2>
-<p>No more guessing which department, which form, or which window. Plain steps, real links, in the order you need them.</p>
+<p class="statement">GuamGov gives simple answers drawn <em>only from official</em> Government of Guam sources. It&rsquo;s free, has no ads, and never asks who you are.</p>
+
+<section class="split">
+<div class="mosaic" aria-hidden="true">
+<span>Public Works</span><span>Land Management</span><span>Public Health</span><span>Guam EPA</span><span>Rev &amp; Tax</span><span>Fire Department</span><span>Contractors License Board</span><span>Homeland Security</span><span>Labor</span><span>Education</span><span>Power Authority</span><span>Land Use Commission</span><span>Parks &amp; Recreation</span><span>Business License &amp; Permit Center</span>
+</div>
+<div>
+<h2>Many offices. One front door.</h2>
+<p>No more guessing which department, which form, or which window. GuamGov puts the island's government in one place, in the order you need it.</p>
+<a class="pill" href="/how-it-works">See how it works &rarr;</a>
 </div>
 </section>
 
-<section class="sec three">
-<div><h3>Official sources only</h3><p>Every step links to the agency page or form it came from.</p></div>
-<div><h3>Honest about gaps</h3><p>Anything not yet confirmed is marked, so you know what to ask at the counter.</p></div>
-<div><h3>Built for your phone</h3><p>No app, no login. Open it anywhere on island.</p></div>
+<section class="features">
+<div class="feature"><div class="fi">🔒</div><h3>Nothing to sign up for.</h3><p>No account, no login, no forms that collect your details. We only count anonymous page visits.</p><a href="/privacy">Learn about privacy &rarr;</a></div>
+<div class="feature"><div class="fi">✅</div><h3>Clear answers. Official sources.</h3><p>Every step links to the agency page, law, or form it came from. Anything unconfirmed is marked.</p><a href="/how-it-works">Learn about sources &rarr;</a></div>
+<div class="feature"><div class="fi">📱</div><h3>No app to download.</h3><p>Open it in your browser on any phone, tablet, or computer, anywhere on island.</p><a href="#all">Find what you need &rarr;</a></div>
 </section>
 
-<footer>An unofficial demo of a single permit guide for Guam, inspired by PermitSF and America.gov. Steps are summarized from agency pages and may change, so confirm with the agency before you apply. Not legal advice.</footer>
+<section class="coming">
+<h2>More coming</h2>
+<p>Going beyond answers: one form for every agency, live clearance tracking, and everything in one place.</p>
+<div class="previews">
+<div class="preview"><div class="pv"><b>Building permit #2026-0418</b><div class="bar"><i style="width:66%"></i></div>Land Management ✓ &middot; Guam EPA ✓ &middot; Fire pending</div><h3>Track every clearance</h3><p>See which agency has your file, in real time.</p></div>
+<div class="preview"><div class="pv"><b>Fill once</b><br>Name, lot, block, and village carry over to every agency form.</div><h3>One form, every agency</h3><p>No more writing your lot number six times.</p></div>
+<div class="preview"><div class="pv"><b>Total due: 3 fees</b><br>Business license &middot; Sanitary permit &middot; Fire</div><h3>Pay everything at once</h3><p>One checkout for every permit fee.</p></div>
+<div class="preview"><div class="pv"><b>Håfa adai!</b><br>Read every route in CHamoru, English, and more.</div><h3>In your language</h3><p>CHamoru first, then Chuukese, Tagalog, and Korean.</p></div>
+</div>
+</section>
+
+<footer class="foot">
+<nav aria-label="Footer"><a href="/how-it-works">How it works</a><a href="/privacy">Privacy</a><a href="/about">About</a></nav>
+<p>GuamGov is an unofficial demo, not affiliated with the Government of Guam, inspired by America.gov and PermitSF. Steps are summarized from official sources and may change, so confirm with the agency before you apply. Not legal advice.</p>
+</footer>
 </div>
 <script>
-const q=document.getElementById('q'),cards=[...document.querySelectorAll('.card')],none=document.getElementById('none');
+const q=document.getElementById('q'),items=[...document.querySelectorAll('.card,.svc')],none=document.getElementById('none'),tryb=document.getElementById('tryb');
 const stop=new Set('i a an to my the want need do how start get open for of and or at in on is it me can with'.split(' '));
-const vocab=c=>(c.dataset.k+' '+c.querySelector('h3').textContent).toLowerCase().split(/[^a-z]+/);
+const vocab=c=>(c.dataset.k+' '+(c.querySelector('h3,b')||{}).textContent).toLowerCase().split(/[^a-z]+/);
 function filter(){const words=q.value.toLowerCase().split(/[^a-z]+/).filter(w=>w.length>1&&!stop.has(w));let shown=0;
-cards.forEach(c=>{const v=vocab(c);const hit=!words.length||words.some(w=>v.some(t=>t.startsWith(w)));c.hidden=!hit;if(hit)shown++});
+const score=c=>{const v=vocab(c);return words.filter(w=>v.some(t=>t.startsWith(w))).length};
+const scores=items.map(score),best=Math.max(0,...scores);
+items.forEach((c,i)=>{const hit=!words.length||(best>0&&scores[i]===best);c.hidden=!hit;if(hit)shown++});
 none.style.display=shown?'none':'block'}
+function go(){filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})}
 q.addEventListener('input',filter);
-document.getElementById('askf').addEventListener('submit',()=>{filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})});
-document.querySelectorAll('#tries button').forEach(b=>b.onclick=()=>{q.value=b.textContent;filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})});
+document.getElementById('askf').addEventListener('submit',go);
+const tries=['I want to start a food truck','My roof blew off in the typhoon','How do I build a fence?','I need to clear my lot','Renew my driver\'s license','Open a small business','Install a septic tank','Check a contractor\'s license'];
+let ti=0;tryb.onclick=()=>{q.value=tryb.textContent;go()};
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{if(document.activeElement===q||q.value)return;ti=(ti+1)%tries.length;tryb.style.opacity=0;setTimeout(()=>{tryb.textContent=tries[ti];tryb.style.opacity=1},350)},3200);
 </script>
 </body>
 </html>
