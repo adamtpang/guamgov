@@ -263,3 +263,37 @@ button.pill.menu{font:inherit;font-size:.9rem;cursor:pointer;padding:8px 18px}
 .menu-more a:hover{background:var(--soft)}
 .menu-note{color:var(--muted);font-size:.8rem;margin:18px 16px 0}
 @media (prefers-reduced-motion:reduce){.menu-sheet{animation:none}}
+
+[hidden]{display:none!important}
+.skip{background:var(--bg);color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.ask input:focus-visible,.dock input:focus-visible,.composer textarea:focus-visible{outline:3px solid #0270c4;outline-offset:4px}
+.wm b{color:var(--accent)}
+.grid{grid-template-columns:repeat(auto-fill,minmax(min(290px,100%),1fr))}
+.svcgrid{grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr))}
+.cite{min-width:24px;min-height:24px}
+@media (prefers-color-scheme:dark){
+ .composer .send,.dock button,.ask button{background:#0270c4;color:#fff}
+ .cite:hover{color:#012d5c}
+ .ib.marks i{color:var(--bg)}
+}
+button:disabled{cursor:wait;opacity:.65}
+.chip,.ctrls button,.menu-more a{min-height:44px;min-width:44px}
+.chip{display:inline-flex;align-items:center;justify-content:center}
+.msg,.sources a,.prose{overflow-wrap:anywhere}
+.composer{bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.dock{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.source-date{font-size:.85rem;color:var(--ink2)}
+.correction-actions button{font:inherit;min-height:44px;cursor:pointer}
+.card .go a{min-height:44px;display:inline-flex;align-items:center}
+.brand,button.pill.menu{min-height:44px}
+.photo-fallback{position:absolute;inset:0;background:linear-gradient(135deg,#e3f1fd,#eef3f9);display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:80px;color:#012d5c}
+.photo-fallback img{width:100px;height:100px;border-radius:24px}
+.photo-fallback p{font-size:clamp(1.1rem,3vw,1.6rem);font-weight:600;line-height:1.4;text-align:center;margin:16px 0 0}
+.slides img.on:not(.loaded){opacity:0}
+.correction-actions{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}
+.correction-draft{width:100%;min-height:220px;padding:16px;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:16px}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+ .card:hover{transform:none}
+}

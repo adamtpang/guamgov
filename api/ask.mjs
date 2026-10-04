@@ -3,14 +3,13 @@
 // 2. The matching KB text goes to a cheap model (lookup) or a stronger one (reasoning).
 // Streams NDJSON: {"meta":{...}} first, then {"t":"..."} chunks, then {"done":true}.
 import { KB } from './_kb.mjs';
+import { rateLimited } from './_rate.mjs';
 
 const OR = 'https://openrouter.ai/api';
 export const MODELS = { lookup: 'google/gemini-2.5-flash', reasoning: 'anthropic/claude-sonnet-5.5' };
 const THRESHOLD = 0.75;          // below this Jev confidence, load every in-scope topic
 const MAX_Q = 500;               // characters
 const MAX_TOKENS = { lookup: 600, reasoning: 1400 }; // answer caps; reasoning models spend some on thinking
-const RATE = { limit: 20, windowMs: 60 * 60 * 1000 }; // per IP, per instance (best effort)
-const hits = new Map();
 
 const TOPICS = {
   'food-truck': 'Food trucks, restaurants, food stalls, sanitary permits, food handler health certificates',
@@ -30,6 +29,7 @@ Answer ONLY from the KNOWLEDGE below. It is your entire source of truth.
 Rules:
 - Plain language, short. Lead with the direct answer in one or two sentences, then numbered steps or bullets if useful. No headings.
 - Cite sources inline as [n] using the numbered SOURCES list, one number per bracket, like [1][3]. Cite only sources that support the sentence. Every answer cites at least one source.
+- Prefer the official agency page, law, or form over a PermitGU summary when citing a requirement. Archived and news sources are not proof that a requirement is current; keep their unconfirmed caveats.
 - Never invent or estimate fees, dollar amounts, forms, timelines, phone numbers, or requirements. If a number is not in the KNOWLEDGE, say it is not confirmed and name the agency to ask.
 - Never calculate, total, or derive a new number (for example a fee for a different headcount or valuation). Quote numbers exactly as written in the KNOWLEDGE, with their caveats.
 - Anything marked UNCONFIRMED: say "not yet confirmed" and tell them to confirm with the agency.
@@ -40,14 +40,6 @@ Rules:
 
 function ip(req) {
   return (req.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'anon';
-}
-
-function limited(key) {
-  const now = Date.now();
-  const arr = (hits.get(key) || []).filter((t) => now - t < RATE.windowMs);
-  arr.push(now);
-  hits.set(key, arr);
-  return arr.length > RATE.limit;
 }
 
 async function jev(q, key) {
@@ -79,32 +71,57 @@ function sourcesFor(ids) {
   const list = [];
   for (const id of ids) {
     const k = KB[id];
-    list.push({ title: `PermitGU: ${k.title}`, url: k.page });
     for (const [, label, url] of k.text.matchAll(/\[([^\]]+)\]\((https?:[^)]+)\)/g)) {
       if (!seen.has(url)) { seen.add(url); list.push({ title: label, url }); }
     }
     for (const [, url] of k.text.matchAll(/Official site: (https?:\S+)/g)) {
       if (!seen.has(url)) { seen.add(url); list.push({ title: new URL(url).hostname, url }); }
     }
+    for (const [rawUrl] of k.text.matchAll(/https?:\/\/[^\s]+/g)) {
+      const url = rawUrl.replace(/[\]),.;]+$/, '');
+      if (url.startsWith('https://permitgu.vercel.app')) continue;
+      if (!seen.has(url)) { seen.add(url); list.push({ title: new URL(url).hostname, url }); }
+    }
   }
   return list;
 }
 
+function knowledgeFor(ids, sources) {
+  return ids.map((id) => {
+    let text = KB[id].text.replace(/^Topic id:.*$/m, '');
+    text = text.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g, (match, label, url) => {
+      const index = sources.findIndex((source) => source.url === url);
+      return index >= 0 ? `[${index + 1}] ${label}: ${url}` : match;
+    });
+    return text;
+  }).join('\n\n---\n\n');
+}
+
 export async function POST(req) {
+  const errorResponse = (error, status) => Response.json({ error }, { status, headers: { 'Cache-Control': 'no-store', ...(status === 429 ? { 'Retry-After': '3600' } : {}) } });
   const key = process.env.OPENROUTER_API_KEY;
-  if (!key) return Response.json({ error: 'not_configured' }, { status: 503 });
-  if (limited(ip(req))) return Response.json({ error: 'rate_limited' }, { status: 429 });
+  if (!key) return errorResponse('not_configured', 503);
+  if (Number(req.headers.get('content-length')) > 8192) return errorResponse('too_large', 413);
 
   let q = '';
-  try { q = String((await req.json()).q || '').trim().slice(0, MAX_Q); } catch {}
-  if (!q) return Response.json({ error: 'empty' }, { status: 400 });
+  try {
+    const body = await req.text();
+    if (Buffer.byteLength(body) > 8192) return errorResponse('too_large', 413);
+    const input = JSON.parse(body).q;
+    if (typeof input === 'string') q = input.trim().slice(0, MAX_Q);
+  } catch {}
+  if (!q) return errorResponse('empty', 400);
+  try {
+    if (await rateLimited(ip(req))) return errorResponse('rate_limited', 429);
+  } catch { return errorResponse('rate_limit_unavailable', 503); }
 
   // Route with Jev; on failure or low confidence, fall back to all in-scope topics + stronger model.
   let topic = null, conf = 0, difficulty = 'reasoning', path = 'fallback';
   try {
     const a = await jev(q, key);
     topic = a.topic.choice;
-    conf = Math.max(0, ...Object.values(a.topic.probabilities || {}));
+    conf = Number(a.topic.probabilities?.[topic] || 0);
+    if (!Number.isFinite(conf) || conf < 0 || conf > 1 || !Object.hasOwn(TOPICS, topic)) { topic = null; conf = 0; }
     difficulty = a.difficulty.choice === 'lookup' ? 'lookup' : 'reasoning';
     path = 'jev';
   } catch (e) { console.error('jev failed', e.message); }
@@ -114,16 +131,23 @@ export async function POST(req) {
     const meta = { topic, conf, path, model: null, sources: [] };
     const msg = "I can only help with Government of Guam permits and services, like building, typhoon repairs, food businesses, land clearing, and business licenses. For anything else, please check the official agency directly.";
     return new Response(JSON.stringify({ meta }) + '\n' + JSON.stringify({ t: msg }) + '\n' + JSON.stringify({ done: true }) + '\n',
-      { headers: { 'Content-Type': 'application/x-ndjson' } });
+      { headers: { 'Content-Type': 'application/x-ndjson', 'Cache-Control': 'no-store' } });
   }
   const ids = topic && topic !== 'out_of_scope' && conf >= THRESHOLD ? [topic] : inScope;
   if (ids.length > 1) difficulty = 'reasoning';
   const model = MODELS[difficulty];
   const sources = sourcesFor(ids);
-  const knowledge = ids.map((id) => KB[id].text).join('\n\n---\n\n');
+  const knowledge = knowledgeFor(ids, sources);
   const srcList = sources.map((s, i) => `[${i + 1}] ${s.title}: ${s.url}`).join('\n');
 
-  const upstream = await fetch(`${OR}/v1/chat/completions`, {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 45000);
+  const abort = () => controller.abort();
+  req.signal.addEventListener('abort', abort, { once: true });
+  if (req.signal.aborted) controller.abort();
+  const cleanup = () => { clearTimeout(timeout); req.signal.removeEventListener('abort', abort); };
+  let upstream;
+  try { upstream = await fetch(`${OR}/v1/chat/completions`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'X-Title': 'PermitGU', 'HTTP-Referer': 'https://permitgu.vercel.app' },
     body: JSON.stringify({
@@ -134,21 +158,28 @@ export async function POST(req) {
         { role: 'user', content: q },
       ],
     }),
-  });
+    signal: controller.signal,
+  }); } catch {
+    cleanup();
+    return errorResponse('upstream_unavailable', 502);
+  }
   if (!upstream.ok || !upstream.body) {
     console.error('answer failed', upstream.status);
-    return Response.json({ error: 'upstream', status: upstream.status }, { status: 502 });
+    cleanup();
+    return errorResponse('upstream', 502);
   }
 
   const meta = { topic: ids.length === 1 ? ids[0] : 'multi', conf: Math.round(conf * 100) / 100, path, model, sources };
   console.log(JSON.stringify({ event: 'ask', path, topic: meta.topic, conf: meta.conf, model }));
   const enc = new TextEncoder();
   const dec = new TextDecoder();
+  let cancelled = false;
   const stream = new ReadableStream({
     async start(ctl) {
-      ctl.enqueue(enc.encode(JSON.stringify({ meta }) + '\n'));
+      const emit = (event) => { if (!cancelled) ctl.enqueue(enc.encode(JSON.stringify(event) + '\n')); };
+      emit({ meta });
       const reader = upstream.body.getReader();
-      let buf = '', sent = 0;
+      let buf = '', sent = 0, answerText = '', finished = false, finishReason = null;
       try {
         for (;;) {
           const { value, done } = await reader.read();
@@ -160,21 +191,27 @@ export async function POST(req) {
             buf = buf.slice(i + 1);
             if (!line.startsWith('data:')) continue;
             const data = line.slice(5).trim();
-            if (data === '[DONE]') continue;
+            if (data === '[DONE]') { finished = true; continue; }
             try {
               const j = JSON.parse(data);
+              if (j.error) throw new Error('upstream_stream');
+              if (j.choices?.[0]?.finish_reason) finishReason = j.choices[0].finish_reason;
+              if (finishReason === 'stop') finished = true;
               const t = j.choices?.[0]?.delta?.content;
-              if (t) { sent += t.length; ctl.enqueue(enc.encode(JSON.stringify({ t: t.replace(/—/g, ', ') }) + '\n')); }
-            } catch {}
+              if (t) { sent += t.length; answerText += t; emit({ t: t.replace(/—/g, ', ') }); }
+            } catch { throw new Error('invalid_upstream_stream'); }
           }
         }
       } catch (e) {
-        ctl.enqueue(enc.encode(JSON.stringify({ error: 'stream' }) + '\n'));
-      }
-      if (!sent) ctl.enqueue(enc.encode(JSON.stringify({ error: 'empty_answer' }) + '\n'));
-      ctl.enqueue(enc.encode(JSON.stringify({ done: true }) + '\n'));
-      ctl.close();
+        emit({ error: 'stream' });
+      } finally { cleanup(); reader.releaseLock(); }
+      if (!sent || !finished || (finishReason && finishReason !== 'stop')) emit({ error: !sent ? 'empty_answer' : 'incomplete_answer' });
+      const citations = [...answerText.matchAll(/\[(\d+(?:\s*,\s*\d+)*)\]/g)].flatMap((match) => match[1].split(/\s*,\s*/).map(Number));
+      if (!citations.length || citations.some((number) => number < 1 || number > sources.length)) emit({ error: 'invalid_citations' });
+      emit({ done: true });
+      if (!cancelled) ctl.close();
     },
+    cancel() { cancelled = true; controller.abort(); cleanup(); },
   });
   return new Response(stream, { headers: { 'Content-Type': 'application/x-ndjson', 'Cache-Control': 'no-store' } });
 }

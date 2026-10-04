@@ -22,7 +22,15 @@
     ['Get help, check a permit, or appeal', '/help', 'Permit center, status, appeals, agencies'],
     ['Other government services', '/#all', 'Licenses, IDs, bills, and more'],
   ];
-  var MORE = [['How it works', '/how-it-works'], ['Privacy', '/privacy'], ['About', '/about']];
+  var MORE = [['How it works', '/how-it-works'], ['Suggest a correction', '/corrections'], ['Privacy', '/privacy'], ['About', '/about']];
+  document.querySelectorAll('.check,.open').forEach(function (gap) {
+    var link = document.createElement('a');
+    link.href = '/corrections?topic=' + encodeURIComponent(document.title.split('|')[0].trim());
+    link.textContent = 'Prepare a correction';
+    var paragraph = document.createElement('p');
+    paragraph.appendChild(link);
+    gap.appendChild(paragraph);
+  });
   nav.innerHTML = '<a class="hide-sm" href="/how-it-works">How it works</a>' +
     '<button type="button" class="pill menu" id="menuBtn" aria-expanded="false" aria-controls="menuPanel">Menu</button>';
   var panel = document.createElement('div');
@@ -30,6 +38,7 @@
   panel.id = 'menuPanel';
   panel.hidden = true;
   panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-modal', 'true');
   panel.setAttribute('aria-label', 'Menu');
   panel.innerHTML = '<div class="menu-sheet"><div class="menu-top"><span class="wm">Permit<b>GU</b></span>' +
     '<button type="button" class="menu-close" aria-label="Close menu">&times;</button></div><nav class="menu-links">' +
@@ -38,14 +47,36 @@
     '</div><p class="menu-note">Unofficial demo. Not affiliated with the Government of Guam.</p></div>';
   document.body.appendChild(panel);
   var btn = document.getElementById('menuBtn');
+  var background = [];
+  var previousOverflow = '';
   function set(open) {
+    if (open === !panel.hidden) return;
     panel.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
-    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      previousOverflow = document.documentElement.style.overflow;
+      background = Array.from(document.body.children).filter(function (element) { return element !== panel; }).map(function (element) {
+        var state = { element: element, inert: element.inert };
+        element.inert = true;
+        return state;
+      });
+    } else {
+      background.forEach(function (state) { state.element.inert = state.inert; });
+      background = [];
+    }
+    document.documentElement.style.overflow = open ? 'hidden' : previousOverflow;
     if (open) panel.querySelector('.menu-close').focus(); else btn.focus();
   }
   btn.onclick = function () { set(true); };
   panel.querySelector('.menu-close').onclick = function () { set(false); };
   panel.addEventListener('click', function (e) { if (e.target === panel || e.target.closest('.menu-links a,.menu-more a')) set(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) set(false); });
+  document.addEventListener('keydown', function (event) {
+    if (panel.hidden) return;
+    if (event.key === 'Escape') { event.preventDefault(); set(false); }
+    if (event.key !== 'Tab') return;
+    var controls = Array.from(panel.querySelectorAll('button, a[href]'));
+    var first = controls[0], last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
 })();

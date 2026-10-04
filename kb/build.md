@@ -93,4 +93,4 @@ Sources:
 
 ## Built from
 
-Built from Guam's Building Law (21 GCA Chapter 66, §§66202-66212, 66301-66302, 66408) and DPW's Application for Permit and Plan Review. Checked 2 Oct 2026. This is an unofficial demo, not legal advice.
+Built from Guam's Building Law (21 GCA Chapter 66, §§66202-66212, 66301-66302, 66408) and DPW's Application for Permit and Plan Review. Source research updated 4 Oct 2026. This is an unofficial demo, not legal advice.

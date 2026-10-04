@@ -6,9 +6,9 @@ Roof torn, walls damaged, shutters gone. First find out whether your repair need
 
 ## The short answer, from Guam's Building Law (21 GCA Chapter 66)
 
-- No permit needed: you, your family, or friends (not a hired contractor) replace 25% or less of your roof covering in a 12-month period
-- No permit needed: owner-done, nonstructural repairs like painting, drywall, siding, or interior finishing, up to 25% of the building's value in 12 months
-- Permit needed: you hire a contractor, the repair is structural, or it goes beyond those limits
+- Roof-covering exemption: the building owner, not a hired contractor, replaces 25% or less of the roof covering in a 12-month period
+- Nonstructural repair exemption: the owner, lessee, employee, family, or friends (not a hired contractor) make repairs up to 25% of the building's value in 12 months, using the same materials and not affecting required fire resistance
+- Confirm with DPW before work: you hire a contractor, the work affects structural integrity or required fire resistance, or it goes beyond those limits
 - Rebuild to new-building code: if repairs in 12 months go over 50% of the building's value
 
 ## Step 1: Check which side of the line you are on
@@ -17,13 +17,12 @@ Who: 21 GCA §66104, Application to Existing Buildings
 
 - Estimate the repair cost against the value of the building
 - Replacing more than 25% of the roof covering means the new roof must meet the code for new buildings
-- Any structural repair (roof framing, beams, load-bearing walls) needs a permit, even if you do it yourself
+- If repairs affect structural design or integrity, such as roof framing, beams, or load-bearing walls, confirm the permit and plan requirements with DPW before work starts. Do not assume owner-done work is exempt
 
-UNCONFIRMED: Summarized from the 2019 published text of Chapter 66. Check with DPW that nothing has changed, especially after a declared disaster.
+UNCONFIRMED: Not yet confirmed: how DPW applies these exemptions to your particular damage, and whether any disaster-specific procedures apply. Confirm with DPW before starting work.
 
 Sources:
-- [21 GCA, Compiler of Laws](http://www.guamcourts.org/CompilerofLaws/GCA/title21.html)
-- [Chapter 66 PDF (Justia copy)](https://statecodesfiles.justia.com/guam/2019/title-21/division-2/chapter-66/chapter-66.pdf)
+- [21 GCA Chapter 66, official Compiler of Laws PDF](https://col.guamcourts.gov/sites/default/files/21gc066_Q.pdf)
 
 ## Step 2: Hire a licensed contractor
 
@@ -80,4 +79,4 @@ Sources:
 
 ## Built from
 
-Built from Guam's Building Law (21 GCA Chapter 66, §§66104, 66106, 66201-66202.1), DPW's Application for Permit and Plan Review, and the Contractors License Board site. Checked 2 Oct 2026. This is an unofficial demo, not legal advice.
+Built from Guam's Building Law (21 GCA Chapter 66, §§66104, 66106, 66201-66202.1), DPW's Application for Permit and Plan Review, and the Contractors License Board site. Source research updated 4 Oct 2026. This is an unofficial demo, not legal advice.

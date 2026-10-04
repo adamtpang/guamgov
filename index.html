@@ -10,13 +10,23 @@
 <link rel="icon" href="favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#012d5c">
-<meta property="og:image" content="https://permitgu.vercel.app/logo-full.png">
-<meta property="og:title" content="PermitGU: Guam permits, one place">
+<link rel="canonical" href="https://permitgu.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PermitGU">
+<meta property="og:url" content="https://permitgu.vercel.app/">
+<meta property="og:title" content="PermitGU | Guam permits, one place (unofficial demo)">
+<meta property="og:description" content="An unofficial demo of one plain-language front door to Government of Guam services, modeled on America.gov and PermitSF. Not a Government of Guam website.">
+<meta property="og:image" content="https://permitgu.vercel.app/social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PermitGU, an unofficial Guam permit guide">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="styles.css">
 <script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 <div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
 <section class="hero-panel">
 <nav class="nav"><a class="brand" href="/" aria-label="PermitGU home"><img class="mark" src="logo-mark.png" width="36" height="36" alt=""><span class="wm">Permit<b>GU</b></span><span class="demo-pill">Demo</span></a>
@@ -27,6 +37,7 @@
 <p class="lede">Håfa adai! Whatever you need to build, open, or fix on Guam, start here.</p>
 
 <div class="stage" id="stage">
+<div class="photo-fallback" aria-hidden="true"><img src="icon-512.png" alt="" width="132" height="132"><p>Build. Open. Repair.<br>One place to start.</p></div>
 <div class="slides" id="slides" aria-hidden="true"></div>
 <form class="ask on-photo" id="askf" onsubmit="return false" role="search">
 <input id="q" type="search" autocomplete="off" placeholder="Describe what you need" aria-label="Describe what you need">
@@ -43,7 +54,8 @@
 
 <div class="wrap">
 
-<section class="sec" id="all" style="padding-top:24px">
+<section class="sec" id="all" style="padding-top:24px" role="main" aria-label="Permit routes and services">
+<span id="main" tabindex="-1"></span>
 <div class="grid" id="cards">
 
 <article class="card" data-k="food truck restaurant kitchen health sanitary vendor event fiesta sell food">
@@ -139,14 +151,14 @@
 </section>
 
 <section class="features">
-<div class="feature"><div class="fi">🔒</div><h3>Nothing to sign up for.</h3><p>No account, no login, no forms that collect your details. We only count anonymous page visits.</p><a href="/privacy">Learn about privacy &rarr;</a></div>
+<div class="feature"><div class="fi">🔒</div><h3>Nothing to sign up for.</h3><p>No account or login. Correction drafts stay in your browser. AI questions go to our providers, so leave out personal details.</p><a href="/privacy">Learn about privacy &rarr;</a></div>
 <div class="feature"><div class="fi">✅</div><h3>Clear answers. Official sources.</h3><p>Every step links to the agency page, law, or form it came from. Anything unconfirmed is marked.</p><a href="/how-it-works">Learn about sources &rarr;</a></div>
 <div class="feature"><div class="fi">📱</div><h3>No app to download.</h3><p>Open it in your browser on any phone, tablet, or computer, anywhere on island.</p><a href="#all">Find what you need &rarr;</a></div>
 </section>
 
 <section class="coming">
 <h2>More coming</h2>
-<p>Going beyond answers: one form for every agency, live clearance tracking, and everything in one place.</p>
+<p>Future concepts, not available services: shared forms, clearance tracking, and payments would need agency agreements and secure integrations. The examples below are fictional.</p>
 <div class="previews">
 <div class="preview"><div class="pv"><b>Building permit #2026-0418</b><div class="bar"><i style="width:66%"></i></div>Land Management ✓ &middot; Guam EPA ✓ &middot; Fire pending</div><h3>Track every clearance</h3><p>See which agency has your file, in real time.</p></div>
 <div class="preview"><div class="pv"><b>Fill once</b><br>Name, lot, block, and village carry over to every agency form.</div><h3>One form, every agency</h3><p>No more writing your lot number six times.</p></div>
@@ -195,19 +207,22 @@ const ex=[
 ];
 const slides=document.getElementById('slides'),live=document.getElementById('live'),pauseB=document.getElementById('pause');
 const sizes='(max-width:820px) 92vw, 760px';
-ex.forEach(([t,id,alt],i)=>{const im=document.createElement('img');im.dataset.alt=alt;im.src=U+id+'?w=1200&q=70&auto=format&fit=crop';im.srcset=[480,800,1200,1600].map(w=>U+id+'?w='+w+'&q=70&auto=format&fit=crop '+w+'w').join(', ');im.sizes=sizes;im.alt='';im.loading=i?'lazy':'eager';im.decoding='async';if(!i)im.className='on';slides.appendChild(im)});
+ex.forEach(([t,id,alt],i)=>{const im=document.createElement('img');im.dataset.alt=alt;im.dataset.src=U+id+'?w=1200&q=70&auto=format&fit=crop';im.dataset.srcset=[480,800,1200,1600].map(w=>U+id+'?w='+w+'&q=70&auto=format&fit=crop '+w+'w').join(', ');im.sizes=sizes;im.alt='';im.decoding='async';im.onload=()=>im.classList.add('loaded');slides.appendChild(im)});
+function loadImage(index){const image=slides.children[index];if(!image.getAttribute('src')){image.srcset=image.dataset.srcset;image.src=image.dataset.src}}
 let ti=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,timer;
-function show(i){ti=(i+ex.length)%ex.length;[...slides.children].forEach((im,k)=>im.classList.toggle('on',k===ti));
+function show(i){ti=(i+ex.length)%ex.length;loadImage(ti);[...slides.children].forEach((im,k)=>im.classList.toggle('on',k===ti));
  if(!q.value)q.placeholder='Try ‘'+ex[ti][0]+'’';live.textContent='Example '+(ti+1)+' of '+ex.length+': '+ex[ti][0]+'. Photo: '+ex[ti][2]}
 function tick(){clearInterval(timer);if(!paused)timer=setInterval(()=>{if(document.activeElement!==q&&!q.value)show(ti+1)},5000)}
 document.getElementById('prev').onclick=()=>{show(ti-1);tick()};
 document.getElementById('next').onclick=()=>{show(ti+1);tick()};
-pauseB.onclick=()=>{paused=!paused;pauseB.innerHTML=paused?'&#9654;':'&#10074;&#10074;';pauseB.setAttribute('aria-label',paused?'Play examples':'Pause examples');tick()};
+function syncPause(){pauseB.innerHTML=paused?'&#9654;':'&#10074;&#10074;';pauseB.setAttribute('aria-label',paused?'Play examples':'Pause examples');pauseB.setAttribute('aria-pressed',String(paused))}
+pauseB.onclick=()=>{paused=!paused;syncPause();tick()};
 slides.onclick=()=>{q.value=ex[ti][0];go()};
-show(0);tick();
+show(0);syncPause();tick();
 // Floating ask bar once the hero scrolls away
 const dock=document.getElementById('dockf'),dq=document.getElementById('dq');
-new IntersectionObserver(([e])=>dock.classList.toggle('show',!e.isIntersecting)).observe(document.getElementById('stage'));
+dock.inert=true;
+new IntersectionObserver(([e])=>{dock.classList.toggle('show',!e.isIntersecting);dock.inert=e.isIntersecting}).observe(document.getElementById('stage'));
 document.getElementById('dockf').addEventListener('submit',()=>{q.value=dq.value;go()});
 </script>
 <script src="menu.js" defer></script>

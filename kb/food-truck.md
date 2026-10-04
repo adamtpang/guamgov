@@ -97,4 +97,4 @@ UNCONFIRMED: Not yet confirmed: we did not find whether a truck must use a commi
 
 ## Built from
 
-Built from Rev & Tax's new business license procedure and Form BL-01, the permit center resources list at bsp.guam.gov, the Guam Fire Department forms page, and news coverage of DPHSS rules. Checked 2 Oct 2026. This is an unofficial demo, not legal advice.
+Built from Rev & Tax's new business license procedure and Form BL-01, the permit center resources list at bsp.guam.gov, the Guam Fire Department forms page, and news coverage of DPHSS rules. Source research updated 4 Oct 2026. This is an unofficial demo, not legal advice.

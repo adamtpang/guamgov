@@ -70,4 +70,4 @@ Sources:
 
 ## Built from
 
-Built from the Guam EPA forms page and 2024 septic requirements, DPW's Application and Permit for Clearing and Grading, and 21 GCA §66202.1. Checked 2 Oct 2026. This is an unofficial demo, not legal advice.
+Built from the Guam EPA forms page and 2024 septic requirements, DPW's Application and Permit for Clearing and Grading, and 21 GCA §66202.1. Source research updated 4 Oct 2026. This is an unofficial demo, not legal advice.

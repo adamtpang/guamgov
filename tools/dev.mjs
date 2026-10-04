@@ -27,7 +27,9 @@ http.createServer(async (req, res) => {
   let p = url.pathname === '/' ? '/index.html' : url.pathname;
   if (!path.extname(p)) p += '.html';
   const f = path.join(ROOT, p);
-  if (!f.startsWith(ROOT) || !fs.existsSync(f)) { res.writeHead(404); return res.end('not found'); }
+  const relative = path.relative(ROOT, f);
+  const publicExtensions = new Set(['.html', '.css', '.js', '.png', '.svg', '.jpg']);
+  if (relative.startsWith('..') || path.isAbsolute(relative) || relative.split(path.sep).some((part) => part.startsWith('.')) || relative.startsWith('api' + path.sep) || !publicExtensions.has(path.extname(f)) || !fs.existsSync(f) || !fs.statSync(f).isFile()) { res.writeHead(404); return res.end('not found'); }
   res.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream' });
   fs.createReadStream(f).pipe(res);
-}).listen(PORT, () => console.log(`dev on http://localhost:${PORT} (key ${process.env.OPENROUTER_API_KEY ? 'loaded' : 'missing'})`));
+}).listen(PORT, '127.0.0.1', () => console.log(`dev on http://127.0.0.1:${PORT} (key ${process.env.OPENROUTER_API_KEY ? 'loaded' : 'missing'})`));

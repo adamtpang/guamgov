@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ask | PermitGU (unofficial demo)</title>
-<meta name="description" content="Ask PermitGU about Guam permits. Answers come only from verified official Government of Guam sources. Not a Government of Guam website.">
+<meta name="description" content="Ask PermitGU about Guam permits. Sourced guides, linked references, and clearly marked gaps. Not a Government of Guam website.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
@@ -12,6 +12,17 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#012d5c">
 <link rel="stylesheet" href="styles.css">
+<link rel="canonical" href="https://permitgu.vercel.app/ask">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PermitGU">
+<meta property="og:url" content="https://permitgu.vercel.app/ask">
+<meta property="og:title" content="Ask | PermitGU (unofficial demo)">
+<meta property="og:description" content="Ask PermitGU about Guam permits. Sourced guides, linked references, and clearly marked gaps. Not a Government of Guam website.">
+<meta property="og:image" content="https://permitgu.vercel.app/social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PermitGU, an unofficial Guam permit guide">
+<meta name="twitter:card" content="summary_large_image">
 <script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
 </head>
 <body class="chat-page">
@@ -21,10 +32,10 @@
 <nav class="nav"><a class="brand" href="/" aria-label="PermitGU home"><img class="mark" src="logo-mark.png" width="36" height="36" alt=""><span class="wm">Permit<b>GU</b></span><span class="demo-pill">Demo</span></a>
 <span class="navlinks"><a class="pill menu" href="/#all">Menu</a></span></nav>
 
-<main id="thread" class="thread" aria-live="polite">
+<main id="thread" class="thread" aria-label="Questions and answers">
 <div class="empty" id="empty">
 <h1>What do you need from Guam government?</h1>
-<p>Answers come only from verified official Government of Guam sources, with links to each one. Ask in English, CHamoru, Tagalog, Chuukese, Korean, or any language.</p>
+<p>Answers use our sourced Guam permit guides, with links and clearly marked gaps. You can ask in another language, but translations have not been reviewed by fluent speakers. Confirm important details with the agency.</p>
 <div class="suggest" id="suggest"></div>
 </div>
 </main>
@@ -35,6 +46,7 @@
 <button type="button" class="mic" id="mic" aria-label="Speak your question" hidden>&#127908;</button>
 <button type="submit" class="send" id="send" aria-label="Send">&rarr;</button>
 <p class="fine">PermitGU can make mistakes. Check the linked official source before you apply. Don&rsquo;t include personal details.</p>
+<p class="sr-only" id="answer-status" role="status" aria-live="polite"></p>
 </form>
 
 <script>
@@ -51,6 +63,9 @@ const FOLLOW={'food-truck':['How do I get a health certificate?','Can I sell foo
  'services':['How do I renew my driver\'s license?','How do I open a business?','Where do I pay a government bill?']};
 const STARTERS=['I want to start a food truck','My roof blew off in the typhoon','How do I build a fence?','Can I build a septic tank from hollow blocks?'];
 let busy=false;
+const send=document.getElementById('send'),status=document.getElementById('answer-status');
+function setBusy(value){busy=value;send.disabled=value;thread.setAttribute('aria-busy',String(value));status.textContent=value?'Getting an answer.':'Answer finished.'}
+const scrollBehavior=()=>matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
 
 const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 // Minimal, safe Markdown: escape first, then bold, lists, paragraphs, and [n] citations.
@@ -70,26 +85,29 @@ function cited(text,sources){const used=new Set();for(const m of text.matchAll(/
 function chip(label,on){const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.onclick=on;return b}
 
 async function ask(q){
-  q=q.trim().slice(0,500);if(!q||busy)return;busy=true;empty.hidden=true;
+  q=q.trim().slice(0,500);if(!q||busy)return;setBusy(true);empty.hidden=true;
   const you=document.createElement('div');you.className='msg you';you.textContent=q;thread.appendChild(you);
   const a=document.createElement('article');a.className='msg ai';a.innerHTML='<div class="body"><span class="typing" aria-label="Thinking"><i></i><i></i><i></i></span></div>';thread.appendChild(a);
-  a.scrollIntoView({behavior:'smooth',block:'start'});
+  a.scrollIntoView({behavior:scrollBehavior(),block:'start'});
   const body=a.querySelector('.body');let meta=null,text='',err=null;
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),60000);
+  let complete=false;
   try{
-    const r=await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q})});
-    if(!r.ok||!r.body){err=r.status===429?'rate':r.status===503?'off':'fail'}
+    const r=await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q}),signal:controller.signal});
+    if(!r.ok||!r.body){let code='';try{code=(await r.json()).error}catch(e){}err=r.status===429?'rate':r.status===503&&code==='not_configured'?'off':'fail'}
     else{const rd=r.body.getReader(),dec=new TextDecoder();let buf='';
       for(;;){const{value,done}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
         while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i);buf=buf.slice(i+1);if(!line.trim())continue;const j=JSON.parse(line);
-          if(j.meta)meta=j.meta;if(j.t){text+=j.t;body.innerHTML=md(text,meta?meta.sources:[])}if(j.error)err='fail'}}}
-  }catch(e){err='fail'}
+          if(j.meta&&Array.isArray(j.meta.sources))meta=j.meta;if(j.t){text+=j.t;body.innerHTML=md(text,meta?meta.sources:[])}if(j.error)err='fail';if(j.done)complete=true}}}
+  }catch(e){err='fail'}finally{clearTimeout(timeout)}
+  if(!complete||!meta)err='fail';
   if(err||!text){
-    const msgs={off:'AI answers are not switched on yet for this demo.',rate:'You have asked a lot of questions in a short time. Please wait a little and try again.',fail:'Something went wrong.'};
+    const msgs={off:'AI answers are not switched on yet for this demo.',rate:'The question limit has been reached. Try again in up to an hour, or open a permit guide below.',fail:'The answer could not be completed. Try again or use a permit guide below.'};
     body.innerHTML=`<p class="err">${msgs[err||'fail']}</p>`;
     const row=document.createElement('div');row.className='chips';
     if(err!=='off')row.appendChild(chip('Try again',()=>{a.remove();you.remove();busy=false;ask(q)}));
     Object.values(ROUTES).forEach(([t,u])=>{const l=document.createElement('a');l.className='chip';l.href=u;l.textContent=t;row.appendChild(l)});
-    a.appendChild(row);busy=false;try{posthog.capture('ask_error',{kind:err||'empty'})}catch(e){}return;
+    a.appendChild(row);setBusy(false);status.textContent='Could not finish the answer. Try again or open a permit guide.';try{posthog.capture('ask_error',{kind:err||'empty'})}catch(e){}return;
   }
   body.innerHTML=md(text,meta.sources);
   const used=cited(text,meta.sources);
@@ -103,22 +121,24 @@ async function ask(q){
   [['\u{1F44D}','up','Helpful'],['\u{1F44E}','down','Not helpful']].forEach(([e,v,l])=>{const b=chip(e,()=>{try{posthog.capture('answer_feedback',{rating:v,topic:meta.topic,model:meta.model})}catch(x){}fb.innerHTML='<span>Thanks for the feedback.</span>'});b.setAttribute('aria-label',l);fb.appendChild(b)});
   a.appendChild(fb);
   try{posthog.capture('answer_shown',{topic:meta.topic,model:meta.model,path:meta.path})}catch(e){}
-  busy=false;
+  setBusy(false);
+  a.tabIndex=-1;
+  status.textContent='Answer ready. Sources and follow-up questions are below your question.';
 }
 
-document.getElementById('composer').addEventListener('submit',()=>{const v=cq.value;cq.value='';cq.style.height='';ask(v)});
-cq.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('composer').requestSubmit()}});
+document.getElementById('composer').addEventListener('submit',()=>{if(busy||!cq.value.trim())return;const v=cq.value;cq.value='';cq.style.height='';ask(v)});
+cq.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();document.getElementById('composer').requestSubmit()}});
 cq.addEventListener('input',()=>{cq.style.height='auto';cq.style.height=Math.min(cq.scrollHeight,160)+'px'});
 STARTERS.forEach(s=>document.getElementById('suggest').appendChild(chip(s,()=>ask(s))));
 
 // Voice input with the browser's built-in speech recognition, where available.
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition,mic=document.getElementById('mic');
 if(SR){mic.hidden=false;mic.onclick=()=>{const r=new SR();r.lang=navigator.language||'en-US';r.interimResults=false;mic.classList.add('on');
-  r.onresult=e=>{cq.value=e.results[0][0].transcript;cq.dispatchEvent(new Event('input'))};r.onend=()=>mic.classList.remove('on');r.start()}}
+  r.onresult=e=>{cq.value=e.results[0][0].transcript;cq.dispatchEvent(new Event('input'))};r.onend=()=>mic.classList.remove('on');r.onerror=()=>{mic.classList.remove('on');status.textContent='Voice input is unavailable. Please type your question.'};try{r.start()}catch(e){mic.classList.remove('on');status.textContent='Voice input is unavailable. Please type your question.'}}}
 
 // A question handed over from the homepage (sessionStorage, never the URL).
 let handed=null;try{handed=sessionStorage.getItem('pgq');sessionStorage.removeItem('pgq')}catch(e){}
-if(handed)ask(handed);else cq.focus();
+if(handed)ask(handed);else if(matchMedia('(pointer: fine)').matches)cq.focus();
 </script>
 <script src="menu.js" defer></script>
 </body>

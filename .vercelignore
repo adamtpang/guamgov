@@ -1,0 +1,12 @@
+.env*
+.claude/
+.git/
+AGENTS.md
+CLAUDE.md
+CODEX_CONTINUE_FROM_CLAUDE.md
+GOAL.md
+HANDOFF.md
+QUALITY.md
+tools/
+evals/
+kb/

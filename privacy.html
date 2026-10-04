@@ -10,28 +10,40 @@
 <link rel="icon" href="favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#012d5c">
-<meta property="og:image" content="https://guamgov.vercel.app/logo-full.png">
+<link rel="canonical" href="https://permitgu.vercel.app/privacy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PermitGU">
+<meta property="og:url" content="https://permitgu.vercel.app/privacy">
+<meta property="og:title" content="Privacy | PermitGU (unofficial demo)">
+<meta property="og:description" content="What PermitGU does and does not collect. Not a Government of Guam website.">
+<meta property="og:image" content="https://permitgu.vercel.app/social-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PermitGU, an unofficial Guam permit guide">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="styles.css">
 <script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 <div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
 <div class="wrap">
 <nav class="nav"><a class="brand" href="/" aria-label="PermitGU home"><img class="mark" src="logo-mark.png" width="36" height="36" alt=""><span class="wm">Permit<b>GU</b></span><span class="demo-pill">Demo</span></a>
 <span class="navlinks"><a class="hide-sm" href="/how-it-works">How it works</a><a class="pill" href="/#all">Browse all</a></span></nav>
-<article class="prose">
+<main class="prose" id="main">
 <h1>Privacy</h1>
-<p>PermitGU has no accounts, no logins, and no forms that collect your personal details. Here is exactly what happens when you visit.</p>
+<p>PermitGU has no accounts or logins. The correction draft form works only in your browser and does not submit or save its contents. Here is what happens when you visit.</p>
 <h2>What we count</h2>
-<p>We use PostHog to count anonymous page views and when you leave a page, so we know which routes are useful. When you rate an answer, we count the rating and the answer's topic, never your question. Session recording, surveys, and automatic click tracking are turned off. We do not build a profile of you.</p>
+<p>We use PostHog for basic usage statistics: page visits, page exits, answer topics and models, errors, and helpfulness ratings. We do not include your question text or correction drafts in analytics events. PostHog may receive browser information and an IP address and use a browser identifier. Session recording, surveys, and automatic click tracking are turned off. There are no user accounts or identified-person profiles on PermitGU.</p>
 <h2>Questions you ask</h2>
 <p>Typing in the homepage box filters the routes inside your browser. When you send a question to <a href="/ask">Ask PermitGU</a>, it goes to our server and on to <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener">OpenRouter</a>, which passes it to the AI model providers that write the answer (currently Google and Anthropic) and to TypeSafe, whose Jev model picks the right topic. PermitGU does not store your questions or answers, and your conversation disappears when you leave the page. Those providers handle your question under their own privacy terms, so please don&rsquo;t include personal details such as your name, address, or ID numbers.</p>
 <p>If you use the microphone button, your browser&rsquo;s built-in speech recognition turns your voice into text. In some browsers, such as Chrome, that audio is processed by the browser maker.</p>
 <h2>Other services the page loads</h2>
+<p>To limit automated abuse, the server counts requests using your IP address. If shared rate limiting is configured, Upstash Redis receives a hashed request identifier and stores a counter that expires after an hour. It does not receive your question or answer.</p>
 <ul><li>The site is hosted on Vercel, which keeps standard server logs, such as IP addresses, to run the service.</li><li>Fonts load from Google Fonts, and homepage photos load from Unsplash. Both receive a normal web request from your browser.</li><li>Links to agency sites take you to those sites, which have their own privacy practices.</li></ul>
 <h2>Is anything shared with the government?</h2>
 <p>No. This is an unofficial demo. Nothing you do here is shared with the Government of Guam.</p>
-</article>
+</main>
 <footer class="foot">
 <nav aria-label="Footer"><a href="/how-it-works">How it works</a><a href="/privacy">Privacy</a><a href="/about">About</a></nav>
 <p>PermitGU is an unofficial demo, not affiliated with the Government of Guam, inspired by America.gov and PermitSF. Steps are summarized from official sources and may change, so confirm with the agency before you apply. Not legal advice.</p>
