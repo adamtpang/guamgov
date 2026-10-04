@@ -45,11 +45,13 @@ Who: DPW Building Inspection and Permits Section, at the Business License and Pe
 - Give the lot, tract, and block, the zoning district, the cost of improvements, and the scope of work
 - The owner or lessee signs, along with your contractor (with license number) and any architect or engineer
 - If the property is in a flood zone, attach a topographic map and a flood elevation certificate
+- Roofing counts in the valuation that sets your permit fee, and fees double if work starts before the permit (21 GCA §66408)
 - Someone applying for the owner must include the owner's verified affidavit authorizing them
 
 Sources:
 - [Permit application](https://bsp.guam.gov/wp-content/uploads/2026/08/DPW-Application-for-Permit-and-Plan-Review-Fillable.pdf)
 - [Permit center](https://dpw.guam.gov/blpc/)
+- [21 GCA Chapter 66](https://col.guamcourts.gov/sites/default/files/21gc066_Q.pdf)
 
 ## Step 4: Build to code and pass inspection
 
@@ -61,15 +63,20 @@ Who: DPW building inspectors
 ## Also: After a declared disaster
 
 - Guam Homeland Security / Office of Civil Defense posts emergency updates, including any DPW permit changes and relief programs
-- The law's typhoon permit exemption covers government, autonomous, and public entities only, not private homeowners
+- The only disaster permit exemption in the law is for government emergency utility and environmental work (21 GCA §66202.1(b)), not private homeowners
+- After Typhoon Mawar, we found no executive order waiving permits for private repairs (EO 2023-02 did not)
+- The free RISEUP temporary roof program after Mawar closed on June 30, 2023
 
 Sources:
 - [GHS / Civil Defense](https://ghs.guam.gov/)
+- [21 GCA §66202.1](https://col.guamcourts.gov/sites/default/files/21gc066_Q.pdf)
+- [EO 2023-02](https://governor.guam.gov/press_release/governor-leon-guerrero-signs-executive-order-no-2023-02/)
+- [RISEUP release](https://ghs.guam.gov/sites/default/files/jic_recovery_release_no._41_-_riseup_program_launches_to_help_temporarily_repair_metal_roofs.docx.pdf)
 
 ## Still unknown (do not answer these; send the person to the agency)
 
 - UNCONFIRMED: Permit fees for a typical roof repair, and how long a repair permit takes after a big storm
-- UNCONFIRMED: Whether DPW has fast-tracked typhoon repair permits after past storms like Mawar
+- UNCONFIRMED: Whether DPW fast-tracked typhoon repair permits in practice after Mawar
 
 ## Built from
 

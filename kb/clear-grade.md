@@ -19,6 +19,8 @@ Who: Guam EPA · 3304 Mariner Ave #17, Barrigada · 671-588-4751
 - Apply online through the Guam EPA permit portal, or find the current form on the forms page
 - Importing soil or fill? The forms page lists soil importation requirements too
 
+UNCONFIRMED: Not yet confirmed: 2011 Guam EPA workshop slides describe this permit and a possible exemption for a one- or two-family house pad or driveway (2011 slides (https://19january2017snapshot.epa.gov/www3/region9/islands/guam-workshop-2011/pdf/Session06PermittingProjApprovPb07282011.pdf)). Current fees and sign-off times are not published online. Ask Guam EPA.
+
 Sources:
 - [Apply online](https://permits.epa.guam.gov/)
 - [Guam EPA forms](https://epa.guam.gov/applications/)
@@ -32,7 +34,7 @@ Who: DPW Division of Building Permits and Inspection
 - No burning on site unless the Fire Department has issued a burning permit
 - Government agencies need this permit too, the same as private owners (21 GCA §66202.1)
 
-UNCONFIRMED: The form posted online is an older version. Ask at the permit center whether a newer one is in use, and who handles the telephone sign-off now.
+UNCONFIRMED: The form posted online is an older version. Ask at the permit center whether a newer one is in use, and who handles the telephone sign-off now. Also not yet confirmed: delays often come from the Guam EPA, Agriculture, and Historic Preservation sign-offs, according to a March 2025 Public Auditor report (OPA 25-05 (https://gwosa2.opaguam.org/sites/default/files/opa-report-no-25-05.pdf)).
 
 Sources:
 - [DPW clearing and grading form](https://www.govguamdocs.com/dpw/docs/Application%20and%20Permit%20For%20Clearing%20&%20Grading.pdf)

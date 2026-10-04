@@ -17,9 +17,12 @@ Who: Department of Land Management, Division of Planning
 - Know your lot, tract, block, and zoning district (the permit application asks for all four)
 - The plot plan in step 2 must be drawn from an accurate boundary-line survey
 - If what you want to build does not fit your zoning, you need a zone change or variance first
+- Single-family setbacks: front 15 ft, rear 10 ft, side 8 ft. Minimum lot is 50 ft wide and 5,000 sq ft, or 10,000 sq ft in the rural A zone. Over the Northern Aquifer, Guam EPA sets lot size and setbacks (21 GCA §61501)
+- Fences: a fence, wall, or hedge up to 6 ft high may go in any front, side, or rear yard (21 GCA §61503(f))
 
 Sources:
 - [DLM Planning](https://dlm.guam.gov/division-of-planning/)
+- [21 GCA Chapter 61 (zoning)](https://col.guamcourts.gov/sites/default/files/21gc061_Q.pdf)
 
 ## Step 2: Prepare plans and a plot plan
 
@@ -39,6 +42,9 @@ Who: DPW Building Inspection and Permits Section, at the Business License and Pe
 - The owner or lessee signs, along with the contractor (with license number) and the architect or engineer (with seal number)
 - In a flood zone, attach a topographic map and a flood elevation certificate
 - Someone applying for the owner needs the owner's verified affidavit
+- DPW contact: (671) 646-3104, BLPC@dpw.guam.gov
+
+UNCONFIRMED: Not yet confirmed: how long review takes. The DPW director said some single-family permits take 5 to 7 working days (The Guam Daily Post (https://www.postguam.com/news/local/abandoned-cars-faster-building-permits-focus-of-dpw-oversight/article_ada0be78-2518-4c0b-a828-fb1954c5608b.html)), while contractors report waits of weeks to years (Isla Public, Oct 12, 2025 (https://www.islapublic.org/news/2025-10-12/testimony-supports-allowing-outside-help-for-permit-reviews)).
 
 Sources:
 - [Permit application](https://bsp.guam.gov/wp-content/uploads/2026/08/DPW-Application-for-Permit-and-Plan-Review-Fillable.pdf)
@@ -51,17 +57,26 @@ Who: Paid to the Treasurer of Guam
 
 - Fees follow Table 3-A of the Uniform Building Code, based on the total value of the work as set by DPW
 - Homes pay half: a single-family house, fence, storage, or other residential improvement pays half the table fee
+- The building official sets the valuation, and it includes roofing, electrical, plumbing, and air conditioning
+- Fees double if work starts before the permit is issued (21 GCA §66408)
 - The permit lapses if work does not start within 3 months, or stops for 3 months. Extensions must be in writing
 
-UNCONFIRMED: The law sets how fees are calculated, not a dollar amount. Ask DPW for the fee on your valuation.
+UNCONFIRMED: Not yet confirmed: the law sets how fees are calculated, not a dollar amount, and we found no current dollar fee schedule online. Call DPW at (671) 646-3104 for the fee on your valuation.
+
+Sources:
+- [21 GCA Chapter 66 (building law)](https://col.guamcourts.gov/sites/default/files/21gc066_Q.pdf)
 
 ## Step 5: Pass inspections and get your certificate of occupancy
 
 Who: DPW building inspectors
 
+- All permitted work is inspected during construction and must stay exposed until it is approved. The DPW Director sets the list of required inspections (21 GCA §66403)
 - Schedule DPW inspections as work progresses, and keep the permit and approved plans on site
 - No new building may be used until DPW issues a certificate of occupancy and it is posted on the premises
 - Additions that change a building's use need a new certificate of occupancy too
+
+Sources:
+- [21 GCA §66403](https://col.guamcourts.gov/sites/default/files/21gc066_Q.pdf)
 
 ## Also: Clearing land or putting in a septic tank?
 
@@ -73,9 +88,8 @@ Sources:
 
 ## Still unknown (do not answer these; send the person to the agency)
 
-- UNCONFIRMED: Typical total cost and wait time for a house permit at the permit center today
-- UNCONFIRMED: Fence height and setback limits for residential lots
-- UNCONFIRMED: Which inspections DPW requires for a typical home (foundation, framing, final)
+- UNCONFIRMED: Typical total cost and real wait time for a house permit at the permit center today
+- UNCONFIRMED: DPW's current inspection list for a typical home (foundation, framing, final)
 
 ## Built from
 

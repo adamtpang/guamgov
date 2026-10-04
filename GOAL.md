@@ -66,17 +66,13 @@ When 1-7 hold, or only Blockers remain: stop and report.
       a separate task.
 
 ## Questions for Dad (and EJ's team)
-- Food truck: where can a truck legally park and sell? Does a mayor or DLM
-  approve the spot?
+Everything else on this list was answered from official sources on 2026-10-04.
+- Food truck: where can a truck park and sell, and who approves the spot?
 - Food truck: is a commissary kitchen required?
-- How long does each clearance really take, and what does it cost in total?
-- Which permits do people actually get stuck on?
-- Typhoon: what does a typical roof repair permit cost, and how long does it
-  take after a big storm? Did DPW fast-track repair permits after Mawar?
-- Build: typical total cost and wait for a house permit? Fence height and
-  setback limits? Which inspections does DPW require for a home?
-- Clearing: fees for a typical residential lot? Are the EPA and DPW permits
-  still separate? How long do the six agency sign-offs take?
+- Current DPW and Guam EPA fee schedules in dollars (none published online).
+- Which inspections does DPW require for a typical home (the Director's list)?
+- Real wait times for each permit and clearance, and where people get stuck.
+- Typhoon: did DPW fast-track repair permits after Mawar in practice?
 - Photos: can anyone share real Guam photos (a food truck, a permit counter,
   roof repair) we may use with credit?
 

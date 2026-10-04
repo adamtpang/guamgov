@@ -21,6 +21,8 @@ Who: Rev & Tax, General Licensing and Registration Branch · 671-635-1828/9 · b
 - Attach the Good Moral Questionnaire and a copy of your photo ID
 - Using a business name (DBA)? Call or email to check it is available, and bring the DBA form notarized
 
+UNCONFIRMED: Not yet confirmed: Rev & Tax's fee sheet lists license fees from $100 to $1,000 based on gross receipts, and a late fee after June 30 of $50 plus $1 a day. The sheet is dated March 2013 and may be outdated (fee sheet, 2013 (https://www.guamtax.com/fees/BusinessLicenseFees_201303.pdf)). Confirm with Rev & Tax.
+
 Sources:
 - [Form BL-01](https://www.guamtax.com/notices/FORMBL-01NEWBUSINESSLICENSEAPPLICATION.pdf)
 - [Instructions + questionnaire](http://www.govguamdocs.com/revtax/docs/FormBL-01InstructionswithApplicationandQuestionnaire11192020.pdf)
@@ -42,14 +44,15 @@ Who: Public Health (DPHSS), Division of Environmental Health, Plans and Specific
 - Guam law makes it unlawful to run a mobile food service establishment without a valid sanitary permit
 - New establishments file Form A (sanitary application) and Form B (food establishment supplement)
 - The permit is issued after plan review and an inspection, and it cannot be moved to another person or establishment
-- Reported fee: $290 for up to 10 employees, plus $5 for each additional employee
+- Fee: $568 a year from January 1, 2026 (up from $468). It covers 1 to 10 employees, plus $5 for each additional employee, and is pro-rated to your renewal date (DPHSS release PR26-044, Dec 30, 2025 (https://go.opengovguam.com/uploads/news/news_1767072471_PR26-44_NEW%20ANNUAL%20RATE%20FOR%20SANITARY%20PERMIT(S).pdf))
 
-UNCONFIRMED: Not yet confirmed: these forms are listed on the permit center's resources page, but the DPHSS site could not be opened to read them. The fee comes from 2021 news coverage. Confirm both with DEH.
+UNCONFIRMED: DPHSS is rebuilding its website, so the DPHSS form links on this page are archived copies (the sanitary permit application was archived July 2026; Form B is the 2021 version). Confirm you have the current forms with DEH at (671) 922-2533, the number printed on the sanitary permit application.
 
 Sources:
-- [Form A](https://dphss.guam.gov/wp-content/uploads/2021/08/Sanitary-Permit.FORM_.A_2021.pdf)
-- [Form B](https://dphss.guam.gov/wp-content/uploads/2021/08/Sanitary-Permit.FORM_.B_2021.pdf)
+- [Sanitary permit application (archived)](https://web.archive.org/web/20260711205311/https://dphss.guam.gov/sites/default/files/SANITARY%20PERMIT%20APPLICATION.pdf)
+- [Form B (archived)](https://web.archive.org/web/20240608150633/https://dphss.guam.gov/wp-content/uploads/2021/08/Sanitary-Permit.FORM_.B_2021.pdf)
 - [Environmental Health](https://dphss.guam.gov/dphss-divisions/division-environmental-health-deh)
+- [(archived copy)](https://web.archive.org/web/20260711212741/https://dphss.guam.gov/dphss-divisions/division-environmental-health-deh)
 
 ## Step 4: Health certificates for everyone handling food
 
@@ -59,8 +62,8 @@ Who: Public Health (DPHSS)
 - Study the food safety course manual first
 
 Sources:
-- [Health certificate application](https://dphss.guam.gov/wp-content/uploads/2020/08/01.-HC.FOOD_2018.pdf)
-- [Study manual](https://dphss.guam.gov/deh-studymanual/)
+- [Health certificate application (archived)](https://web.archive.org/web/20260711205916/https://dphss.guam.gov/sites/default/files/HEALTH%20CERTIFICATE%20CLEARANCE%20APPLICATION%202025.pdf)
+- [Study manuals, 6 languages (archived)](https://web.archive.org/web/20250905194129/http://dphss.guam.gov/deh-studymanual/)
 
 ## Step 5: Fire Department clearance
 
@@ -78,11 +81,17 @@ Sources:
 - Every food seller at an island event needs a temporary food service establishment (TFSE) sanitary permit, applied for at DEH's Plans and Specifications Section at the permit center
 
 Sources:
-- [TFSE application](http://dphss.guam.gov/wp-content/uploads/2019/05/TFSE-Application-Fillable.pdf)
+- [TFSE application (archived)](https://web.archive.org/web/20250903054503/http://dphss.guam.gov/wp-content/uploads/2019/05/TFSE-Application-Fillable.pdf)
+
+## Also: Where can the truck park and sell?
+
+UNCONFIRMED: Not yet confirmed: we found no Guam rule on where food trucks may park. Owners report negotiating spot by spot with village mayors, Parks and Recreation, DPW, and DPHSS. Reported fees include Parks and Recreation at $1,500 a month plus $5 per employee, the Tumon Night Market at $175 a night, and village festivals from $200 to $6,000 (Isla Public, Sep 22, 2026 (https://www.islapublic.org/news/2026-09-22/food-truck-owners-say-business-is-hindered-by-widely-varying-fees-inconsistent-regulations)). Ask each site owner before you set up.
+
+UNCONFIRMED: Not yet confirmed: we did not find whether a truck must use a commissary kitchen. That rule would be in the Guam Food Code (26 GAR Division 1, Chapter 4). Ask DPHSS DEH.
 
 ## Still unknown (do not answer these; send the person to the agency)
 
-- UNCONFIRMED: Where a truck may legally park and sell, and whether village mayors or Land Management must approve the spot
+- UNCONFIRMED: Who officially approves a parking spot, and whether any written rule exists
 - UNCONFIRMED: Whether a truck needs a commissary kitchen to prep and clean in
 - UNCONFIRMED: How long each clearance usually takes, and the total cost from start to open
 

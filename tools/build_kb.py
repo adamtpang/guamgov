@@ -18,8 +18,10 @@ ROUTES = {
 
 
 def text(fragment):
-    """Strip tags and decode entities from an HTML fragment."""
-    t = re.sub(r'<[^>]+>', '', fragment)
+    """Strip tags and decode entities from an HTML fragment.
+    Inline web links keep their URL, so facts cited in the text keep their source."""
+    t = re.sub(r'<a [^>]*href="(http[^"]+)"[^>]*>(.*?)</a>', r'\2 (\1)', fragment, flags=re.S)
+    t = re.sub(r'<[^>]+>', '', t)
     return re.sub(r'\s+', ' ', html.unescape(t)).strip()
 
 
@@ -54,9 +56,8 @@ def route_md(slug, fname):
         ul = re.search(r'<ul>(.*?)</ul>', li, re.S)
         if ul:
             md += [f'- {text(x)}' for x in re.findall(r'<li>(.*?)</li>', ul.group(1), re.S)] + ['']
-        chk = re.search(r'<div class="check">(.*?)</div>', li, re.S)
-        if chk:
-            md += [f'UNCONFIRMED: {text(chk.group(1))}', '']
+        for chk in re.findall(r'<div class="check">(.*?)</div>', li, re.S):
+            md += [f'UNCONFIRMED: {text(chk)}', '']
         lk = re.search(r'<div class="links">(.*?)</div>', li, re.S)
         if lk:
             md += ['Sources:'] + [f'- [{a}]({b})' for a, b in links(lk.group(1))] + ['']
