@@ -134,3 +134,20 @@ footer{color:var(--muted);font-size:.85rem;padding:48px 0 64px;border-top:1px so
 .prose h2{font-size:1.3rem;letter-spacing:-.015em;margin:36px 0 8px}
 .prose p,.prose li{color:var(--ink2);font-size:1.05rem}
 @media (max-width:820px){.split{grid-template-columns:1fr;gap:24px}.features{grid-template-columns:1fr}.navlinks a.hide-sm{display:none}}
+
+/* ---- PermitGU brand (logo colors) ---- */
+:root{--ink:#012d5c;--accent:#0270c4;--accent-soft:#e3f1fd;--gu:#028beb;--hib:#ea1a30;--sun:#fe971e;--ok:#2eae3e;--brand:"Poppins","Inter",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--ink:#eef4fb;--accent:#5fb4f5;--accent-soft:#0b2540;--gu:#4fb0f7}}
+.brand .mark{width:36px;height:36px;border-radius:9px}
+.wm{font-family:var(--brand);font-weight:800;letter-spacing:-.02em;font-size:1.35rem;color:var(--ink)}
+.wm b,.hero-wm b{color:var(--gu);font-weight:800}
+.hero-mark{display:block;margin:0 auto 18px;width:132px;height:132px;border-radius:28px}
+.hero h1.hero-wm{font-family:var(--brand);font-weight:800;letter-spacing:-.045em;font-size:clamp(3.4rem,12vw,7.4rem);line-height:.95}
+.ask button{background:var(--ink)}
+.card .go a.primary{background:var(--ink)}
+.num{background:var(--ink)}
+.demo{border-bottom-color:#fcd34d}
+.statement em{color:var(--gu)}
+.feature .fi,.card .ico{filter:saturate(1.1)}
+.tag{color:var(--accent);background:var(--accent-soft)}
+@media (prefers-color-scheme:dark){.hero-mark,.brand .mark{background:#fff}}
