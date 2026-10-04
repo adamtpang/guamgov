@@ -189,5 +189,6 @@ const dock=document.getElementById('dockf'),dq=document.getElementById('dq');
 new IntersectionObserver(([e])=>dock.classList.toggle('show',!e.isIntersecting)).observe(document.getElementById('stage'));
 document.getElementById('dockf').addEventListener('submit',()=>{q.value=dq.value;go()});
 </script>
+<script src="menu.js" defer></script>
 </body>
 </html>
