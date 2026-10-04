@@ -24,6 +24,30 @@
     "page": "https://permitgu.vercel.app/clear-grade"
   },
   {
+    "id": "events",
+    "title": "Hold an event, fiesta, or night market booth",
+    "file": "kb/events.md",
+    "page": "https://permitgu.vercel.app/events"
+  },
+  {
+    "id": "zoning",
+    "title": "Check zoning or change how land is used",
+    "file": "kb/zoning.md",
+    "page": "https://permitgu.vercel.app/zoning"
+  },
+  {
+    "id": "public-spaces",
+    "title": "Work on a road, sidewalk, or driveway",
+    "file": "kb/public-spaces.md",
+    "page": "https://permitgu.vercel.app/public-spaces"
+  },
+  {
+    "id": "help",
+    "title": "Get help, check a permit, or appeal",
+    "file": "kb/help.md",
+    "page": "https://permitgu.vercel.app/help"
+  },
+  {
     "id": "services",
     "title": "Other Government of Guam services",
     "file": "kb/services.md",

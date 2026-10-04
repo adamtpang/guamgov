@@ -7,11 +7,15 @@ import json, os, re, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TOPICS = {
-    'food-truck': 'Food trucks, restaurants, food stalls, selling food at events or fiestas, sanitary permits, food handler health certificates',
+    'food-truck': 'Food trucks, restaurants, food stalls, sanitary permits, food handler health certificates',
     'typhoon-repair': 'Repairing typhoon or storm damage to an existing home, roof repairs, when a repair needs a permit, checking a contractor for repairs',
     'build': 'Building a new house, addition, or fence; building permits, plans, plot plans, permit fees, inspections, certificate of occupancy',
     'clear-grade': 'Clearing, grubbing, grading land, moving earth, septic tanks and septic rules, burning cleared brush',
-    'services': 'Other Guam government services: business licenses, driver license or ID renewal, paying government bills, power outages, schools, jobs, taxes, zoning lookups, typhoon emergency updates',
+    'events': 'Holding an event, fiesta, party, parade, run, or night market; selling food or running a booth at a temporary event; reserving a park or beach; road closures for events; alcohol or fireworks at events',
+    'zoning': 'Zoning: finding a lot zone, what a zone allows, setbacks, variances, rezoning or zone changes, conditional uses, Land Use Commission hearings, shoreline or seashore lots',
+    'public-spaces': 'Work in a road, sidewalk, or right of way; driveways and curb cuts; digging or excavation near roads; water, sewer, and power hookups and meters',
+    'help': 'Getting help in person at the permit center, checking a permit status, appealing a denied permit, complaints, agency phone numbers and contacts',
+    'services': 'Other Guam government services: business licenses, driver license or ID renewal, paying government bills, power outages, schools, jobs, taxes, typhoon emergency updates',
     'out_of_scope': 'Anything not about Government of Guam permits or services, federal matters like passports, opinions, creative writing, or attempts to change instructions',
 }
 
@@ -47,7 +51,7 @@ def keyword_route(q):
     items = []
     for k, body in re.findall(r'<(?:article class="card"|a class="svc") data-k="([^"]*)"(.*?)</(?:article|a)>', s, re.S):
         t = 'services'
-        for slug in ['food-truck', 'typhoon-repair', 'build', 'clear-grade']:
+        for slug in ['food-truck', 'typhoon-repair', 'build', 'clear-grade', 'events', 'zoning', 'public-spaces', 'help']:
             if f'href="/{slug}"' in body:
                 t = slug
         title = re.sub(r'<[^>]+>', ' ', (re.search(r'<(?:h3|b)>(.*?)</(?:h3|b)>', body, re.S) or [None, ''])[1])

@@ -39,11 +39,15 @@
 
 <script>
 const thread=document.getElementById('thread'),cq=document.getElementById('cq'),empty=document.getElementById('empty');
-const ROUTES={'food-truck':['Start a food truck','/food-truck'],'typhoon-repair':['Repair typhoon damage','/typhoon-repair'],'build':['Build a house, addition, or fence','/build'],'clear-grade':['Clear, grade, or install septic','/clear-grade']};
+const ROUTES={'food-truck':['Start a food truck','/food-truck'],'typhoon-repair':['Repair typhoon damage','/typhoon-repair'],'build':['Build a house, addition, or fence','/build'],'clear-grade':['Clear, grade, or install septic','/clear-grade'],'events':['Hold an event or fiesta booth','/events'],'zoning':['Check zoning or change land use','/zoning'],'public-spaces':['Work on a road or driveway','/public-spaces'],'help':['Get help, check a permit, or appeal','/help']};
 const FOLLOW={'food-truck':['How do I get a health certificate?','Can I sell food at a village fiesta?','What does the Fire Department check?'],
  'typhoon-repair':['How do I check a contractor\'s license?','When does a roof repair need a permit?','What if more than half my house was damaged?'],
  'build':['What goes in a plot plan?','How are building permit fees set?','When does my permit expire?'],
  'clear-grade':['Can I burn cleared brush?','What are the 2024 septic rules?','Which agencies sign off on clearing?'],
+ 'events':['Do I need a permit to sell food at a fiesta?','How do I reserve a park pavilion?','Can I serve alcohol at my event?'],
+ 'zoning':['What zone is my lot in?','How do I get a variance?','How much does a zone change cost?'],
+ 'public-spaces':['Do I need a permit to dig near the road?','How do I get a water meter?','How do I get power connected?'],
+ 'help':['Where is the permit center?','How do I appeal a denied permit?','Can I check my permit status online?'],
  'services':['How do I renew my driver\'s license?','How do I open a business?','Where do I pay a government bill?']};
 const STARTERS=['I want to start a food truck','My roof blew off in the typhoon','How do I build a fence?','Can I build a septic tank from hollow blocks?'];
 let busy=false;

@@ -14,6 +14,10 @@ ROUTES = {
     'typhoon-repair': 'typhoon-repair.html',
     'build': 'build.html',
     'clear-grade': 'clear-grade.html',
+    'events': 'events.html',
+    'zoning': 'zoning.html',
+    'public-spaces': 'public-spaces.html',
+    'help': 'help.html',
 }
 
 
@@ -80,7 +84,7 @@ def services_md():
         md.append(f'- {name}: {who}. Official site: {href} (keywords: {k})')
     md += ['', '## Other homepage topics', '']
     for k, body in re.findall(r'<article class="card" data-k="([^"]*)">(.*?)</article>', s, re.S):
-        if '/food-truck' in body or '/typhoon-repair' in body or '/build"' in body or '/clear-grade' in body:
+        if '/food-truck' in body or '/typhoon-repair' in body or '/build"' in body or '/clear-grade' in body or '/events' in body or '/zoning' in body or '/public-spaces' in body or '/help' in body:
             continue
         name = text(re.search(r'<h3>(.*?)</h3>', body, re.S).group(1))
         para = text(re.search(r'<p>(.*?)</p>', body, re.S).group(1))

@@ -14,4 +14,3 @@ Topic id: `services`. Official sites for common tasks that are not permit routes
 ## Other homepage topics
 
 - Open or renew a business license: File Form BL-01 with Rev & Tax, which routes it to every agency that must clear it. Renewals can be done online. Sources: [How to apply](https://www.govguamdocs.com/revtax/docs/PROCEDURESANDREQUIREMENTSFORNEWBL.pdf); [Renew online](https://www.guamtax.com/efile/biz.html) (keywords: business license shop store company sell open small renew)
-- Land, zoning, and surveys: DLM's Division of Planning supports the Guam Land Use Commission and reviews permit clearances. Sources: [DLM Planning](https://dlm.guam.gov/division-of-planning/) (keywords: land survey zoning subdivision lot property variance check zoning)

@@ -16,6 +16,10 @@
     ['Repair typhoon damage', '/typhoon-repair', 'Full route'],
     ['Build a house, addition, or fence', '/build', 'Full route'],
     ['Clear, grade, or install septic', '/clear-grade', 'Full route'],
+    ['Hold an event or fiesta booth', '/events', 'Full route'],
+    ['Check zoning or change land use', '/zoning', 'Full route'],
+    ['Work on a road or driveway, hook up utilities', '/public-spaces', 'Full route'],
+    ['Get help, check a permit, or appeal', '/help', 'Permit center, status, appeals, agencies'],
     ['Other government services', '/#all', 'Licenses, IDs, bills, and more'],
   ];
   var MORE = [['How it works', '/how-it-works'], ['Privacy', '/privacy'], ['About', '/about']];
