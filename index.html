@@ -31,9 +31,7 @@
 <form class="ask on-photo" id="askf" onsubmit="return false" role="search">
 <input id="q" type="search" autocomplete="off" placeholder="Describe what you need" aria-label="Describe what you need">
 <button type="submit" aria-label="Search">&rarr;</button>
-</form>
-<p class="caption" id="caption"></p>
-</div>
+</form></div>
 <div class="ctrls" aria-label="Example questions">
 <button type="button" id="prev" aria-label="Previous example">&lsaquo;</button>
 <button type="button" id="pause" aria-label="Pause examples">&#10074;&#10074;</button>
@@ -139,7 +137,7 @@
 <footer class="foot">
 <nav aria-label="Footer"><a href="/how-it-works">How it works</a><a href="/privacy">Privacy</a><a href="/about">About</a></nav>
 <p>PermitGU is an unofficial demo, not affiliated with the Government of Guam, inspired by America.gov and PermitSF. Steps are summarized from official sources and may change, so confirm with the agency before you apply. Not legal advice.</p>
-<p class="credits">Photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> by Ryan Waring, Raze Solar, Josh Olalde, John Esperancilla, Ali Mkumbwa, Built Robotics, Christer Lässman, and yeojin yun.</p>
+<p class="credits">Photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> by Winston Chen and yeojin yun, all taken on Guam.</p>
 </footer>
 </div>
 <form class="dock" id="dockf" onsubmit="return false" role="search" aria-label="Ask PermitGU">
@@ -160,22 +158,24 @@ q.addEventListener('input',filter);
 document.getElementById('askf').addEventListener('submit',go);
 // Example carousel: each question paired with a photo (Unsplash, hotlinked per its license)
 const U='https://images.unsplash.com/';
+// Every photo below was taken on Guam (location verified on Unsplash).
 const ex=[
- ['I want to start a food truck','photo-1565123409695-7b5ef63a2efb','A blue food truck parked on a street'],
- ['My roof blew off in the typhoon','photo-1635424824849-1b09bdcc55b1','A worker repairing a roof under a blue sky'],
- ['How do I build a fence or addition?','photo-1587582423116-ec07293f0395','A builder on a wooden house frame'],
- ['I need to clear my lot','photo-1628645419184-26a1f2757340','An excavator working on rocky ground by the sea'],
- ['Open a small business','photo-1687422808248-f807f4ea2a2e','A smiling shop owner behind his counter'],
- ['Install a septic tank','photo-1649807533255-bbc9c9fb7d77','An excavator on a cleared dirt lot'],
- ['Check a contractor\'s license','photo-1726589004565-bedfba94d3a2','A roofer working on a tiled roof'],
- ['Renew my driver\'s license','photo-1751543593210-0875e6c939b4','Tumon Bay beach and hotels on a sunny day'],
+ ['I want to start a food truck','photo-1733714560654-b09807b1f876','Friends at the water on Tumon Bay'],
+ ['My roof blew off in the typhoon','photo-1733714559774-87e73dbfbb7f','A beach house with a metal roof in Tumon'],
+ ['How do I build a fence or addition?','photo-1706241274153-cc066a457a9e','A palm-lined residential street on Guam'],
+ ['I need to clear my lot','photo-1706242348490-51b4883f298b','Green hills above a bay on Guam'],
+ ['Open a small business','photo-1733714561708-1e645e2af618','Hotels along Tumon Bay'],
+ ['Check my zoning','photo-1733714561745-8da390df0e69','Latte stones in a park in Tumon'],
+ ['Install a septic tank','photo-1706242294118-2c14ead8db3a','A clear river channel through Guam jungle'],
+ ['Check a contractor\'s license','photo-1733714559758-9c8b06aa25ea','A newly built white chapel in Tumon'],
+ ['Renew my driver\'s license','photo-1706241254323-6988611a7675','A traffic light on a Guam road'],
 ];
-const slides=document.getElementById('slides'),caption=document.getElementById('caption'),live=document.getElementById('live'),pauseB=document.getElementById('pause');
+const slides=document.getElementById('slides'),live=document.getElementById('live'),pauseB=document.getElementById('pause');
 const sizes='(max-width:820px) 92vw, 760px';
-ex.forEach(([t,id,alt],i)=>{const im=document.createElement('img');im.src=U+id+'?w=1200&q=70&auto=format&fit=crop';im.srcset=[480,800,1200,1600].map(w=>U+id+'?w='+w+'&q=70&auto=format&fit=crop '+w+'w').join(', ');im.sizes=sizes;im.alt='';im.loading=i?'lazy':'eager';im.decoding='async';if(!i)im.className='on';slides.appendChild(im)});
+ex.forEach(([t,id,alt],i)=>{const im=document.createElement('img');im.dataset.alt=alt;im.src=U+id+'?w=1200&q=70&auto=format&fit=crop';im.srcset=[480,800,1200,1600].map(w=>U+id+'?w='+w+'&q=70&auto=format&fit=crop '+w+'w').join(', ');im.sizes=sizes;im.alt='';im.loading=i?'lazy':'eager';im.decoding='async';if(!i)im.className='on';slides.appendChild(im)});
 let ti=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,timer;
 function show(i){ti=(i+ex.length)%ex.length;[...slides.children].forEach((im,k)=>im.classList.toggle('on',k===ti));
- if(!q.value)q.placeholder='Try ‘'+ex[ti][0]+'’';caption.textContent=ex[ti][2];live.textContent='Example '+(ti+1)+' of '+ex.length+': '+ex[ti][0]}
+ if(!q.value)q.placeholder='Try ‘'+ex[ti][0]+'’';live.textContent='Example '+(ti+1)+' of '+ex.length+': '+ex[ti][0]+'. Photo: '+ex[ti][2]}
 function tick(){clearInterval(timer);if(!paused)timer=setInterval(()=>{if(document.activeElement!==q&&!q.value)show(ti+1)},5000)}
 document.getElementById('prev').onclick=()=>{show(ti-1);tick()};
 document.getElementById('next').onclick=()=>{show(ti+1);tick()};
