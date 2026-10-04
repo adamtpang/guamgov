@@ -1,0 +1,32 @@
+[
+  {
+    "id": "food-truck",
+    "title": "Start a food truck on Guam",
+    "file": "kb/food-truck.md",
+    "page": "https://permitgu.vercel.app/food-truck"
+  },
+  {
+    "id": "typhoon-repair",
+    "title": "Repair typhoon damage",
+    "file": "kb/typhoon-repair.md",
+    "page": "https://permitgu.vercel.app/typhoon-repair"
+  },
+  {
+    "id": "build",
+    "title": "Build a house, addition, or fence",
+    "file": "kb/build.md",
+    "page": "https://permitgu.vercel.app/build"
+  },
+  {
+    "id": "clear-grade",
+    "title": "Clear, grade, or install septic",
+    "file": "kb/clear-grade.md",
+    "page": "https://permitgu.vercel.app/clear-grade"
+  },
+  {
+    "id": "services",
+    "title": "Other Government of Guam services",
+    "file": "kb/services.md",
+    "page": "https://permitgu.vercel.app"
+  }
+]
