@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask | PermitGU (unofficial demo)</title>
+<meta name="description" content="Ask PermitGU about Guam permits. Answers come only from verified official Government of Guam sources. Not a Government of Guam website.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#012d5c">
+<link rel="stylesheet" href="styles.css">
+<script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
+</head>
+<body class="chat-page">
+<a class="skip" href="#composer">Skip to message input</a>
+<div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
+<div class="wrap chat-wrap">
+<nav class="nav"><a class="brand" href="/" aria-label="PermitGU home"><img class="mark" src="logo-mark.png" width="36" height="36" alt=""><span class="wm">Permit<b>GU</b></span><span class="demo-pill">Demo</span></a>
+<span class="navlinks"><a class="pill menu" href="/#all">Menu</a></span></nav>
+
+<main id="thread" class="thread" aria-live="polite">
+<div class="empty" id="empty">
+<h1>What do you need from Guam government?</h1>
+<p>Answers come only from verified official Government of Guam sources, with links to each one. Ask in English, CHamoru, Tagalog, Chuukese, Korean, or any language.</p>
+<div class="suggest" id="suggest"></div>
+</div>
+</main>
+</div>
+
+<form class="composer" id="composer" onsubmit="return false" role="search" aria-label="Ask PermitGU">
+<textarea id="cq" rows="1" placeholder="Ask anything about Guam permits..." aria-label="Ask anything about Guam permits" maxlength="500"></textarea>
+<button type="button" class="mic" id="mic" aria-label="Speak your question" hidden>&#127908;</button>
+<button type="submit" class="send" id="send" aria-label="Send">&rarr;</button>
+<p class="fine">PermitGU can make mistakes. Check the linked official source before you apply. Don&rsquo;t include personal details.</p>
+</form>
+
+<script>
+const thread=document.getElementById('thread'),cq=document.getElementById('cq'),empty=document.getElementById('empty');
+const ROUTES={'food-truck':['Start a food truck','/food-truck'],'typhoon-repair':['Repair typhoon damage','/typhoon-repair'],'build':['Build a house, addition, or fence','/build'],'clear-grade':['Clear, grade, or install septic','/clear-grade']};
+const FOLLOW={'food-truck':['How do I get a health certificate?','Can I sell food at a village fiesta?','What does the Fire Department check?'],
+ 'typhoon-repair':['How do I check a contractor\'s license?','When does a roof repair need a permit?','What if more than half my house was damaged?'],
+ 'build':['What goes in a plot plan?','How are building permit fees set?','When does my permit expire?'],
+ 'clear-grade':['Can I burn cleared brush?','What are the 2024 septic rules?','Which agencies sign off on clearing?'],
+ 'services':['How do I renew my driver\'s license?','How do I open a business?','Where do I pay a government bill?']};
+const STARTERS=['I want to start a food truck','My roof blew off in the typhoon','How do I build a fence?','Can I build a septic tank from hollow blocks?'];
+let busy=false;
+
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// Minimal, safe Markdown: escape first, then bold, lists, paragraphs, and [n] citations.
+function md(src,sources){
+  let h=esc(src).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  h=h.replace(/\[(\d+(?:\s*,\s*\d+)*)\]/g,(m,g)=>g.split(/\s*,\s*/).map(n=>{const s=sources[+n-1];return s?`<a class="cite" href="${esc(s.url)}" target="_blank" rel="noopener" title="${esc(s.title)}">${n}</a>`:''}).join(''));
+  const out=[];let list=null;
+  for(const line of h.split(/\n/)){
+    const ol=line.match(/^\s*\d+[.)]\s+(.*)/),ul=line.match(/^\s*[-*•]\s+(.*)/);
+    if(ol||ul){const tag=ol?'ol':'ul';if(!list||list.tag!==tag){if(list)out.push(`</${list.tag}>`);list={tag};out.push(`<${tag}>`)}out.push(`<li>${(ol||ul)[1]}</li>`)}
+    else{if(list){out.push(`</${list.tag}>`);list=null}if(line.trim())out.push(`<p>${line}</p>`)}
+  }
+  if(list)out.push(`</${list.tag}>`);
+  return out.join('');
+}
+function cited(text,sources){const used=new Set();for(const m of text.matchAll(/\[(\d+(?:\s*,\s*\d+)*)\]/g))m[1].split(/\s*,\s*/).forEach(n=>used.add(+n));return sources.filter((s,i)=>used.has(i+1)).map(s=>({...s,n:sources.indexOf(s)+1}))}
+function chip(label,on){const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=label;b.onclick=on;return b}
+
+async function ask(q){
+  q=q.trim().slice(0,500);if(!q||busy)return;busy=true;empty.hidden=true;
+  const you=document.createElement('div');you.className='msg you';you.textContent=q;thread.appendChild(you);
+  const a=document.createElement('article');a.className='msg ai';a.innerHTML='<div class="body"><span class="typing" aria-label="Thinking"><i></i><i></i><i></i></span></div>';thread.appendChild(a);
+  a.scrollIntoView({behavior:'smooth',block:'start'});
+  const body=a.querySelector('.body');let meta=null,text='',err=null;
+  try{
+    const r=await fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q})});
+    if(!r.ok||!r.body){err=r.status===429?'rate':r.status===503?'off':'fail'}
+    else{const rd=r.body.getReader(),dec=new TextDecoder();let buf='';
+      for(;;){const{value,done}=await rd.read();if(done)break;buf+=dec.decode(value,{stream:true});let i;
+        while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i);buf=buf.slice(i+1);if(!line.trim())continue;const j=JSON.parse(line);
+          if(j.meta)meta=j.meta;if(j.t){text+=j.t;body.innerHTML=md(text,meta?meta.sources:[])}if(j.error)err='fail'}}}
+  }catch(e){err='fail'}
+  if(err||!text){
+    const msgs={off:'AI answers are not switched on yet for this demo.',rate:'You have asked a lot of questions in a short time. Please wait a little and try again.',fail:'Something went wrong.'};
+    body.innerHTML=`<p class="err">${msgs[err||'fail']}</p>`;
+    const row=document.createElement('div');row.className='chips';
+    if(err!=='off')row.appendChild(chip('Try again',()=>{a.remove();you.remove();busy=false;ask(q)}));
+    Object.values(ROUTES).forEach(([t,u])=>{const l=document.createElement('a');l.className='chip';l.href=u;l.textContent=t;row.appendChild(l)});
+    a.appendChild(row);busy=false;try{posthog.capture('ask_error',{kind:err||'empty'})}catch(e){}return;
+  }
+  body.innerHTML=md(text,meta.sources);
+  const used=cited(text,meta.sources);
+  if(used.length){const s=document.createElement('div');s.className='sources';s.innerHTML='<h2>Sources</h2>'+used.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener"><span>${x.n}</span>${esc(x.title)}</a>`).join('');a.appendChild(s)}
+  const rt=ROUTES[meta.topic];
+  const row=document.createElement('div');row.className='chips';
+  if(rt){const l=document.createElement('a');l.className='chip strong';l.href=rt[1];l.textContent='Open the full route: '+rt[0]+' →';row.appendChild(l)}
+  (FOLLOW[meta.topic]||[]).filter(f=>f.toLowerCase()!==q.toLowerCase()).slice(0,3).forEach(f=>row.appendChild(chip(f,()=>ask(f))));
+  if(row.children.length)a.appendChild(row);
+  const fb=document.createElement('div');fb.className='feedback';fb.innerHTML='<span>Was this helpful?</span>';
+  [['\u{1F44D}','up','Helpful'],['\u{1F44E}','down','Not helpful']].forEach(([e,v,l])=>{const b=chip(e,()=>{try{posthog.capture('answer_feedback',{rating:v,topic:meta.topic,model:meta.model})}catch(x){}fb.innerHTML='<span>Thanks for the feedback.</span>'});b.setAttribute('aria-label',l);fb.appendChild(b)});
+  a.appendChild(fb);
+  try{posthog.capture('answer_shown',{topic:meta.topic,model:meta.model,path:meta.path})}catch(e){}
+  busy=false;
+}
+
+document.getElementById('composer').addEventListener('submit',()=>{const v=cq.value;cq.value='';cq.style.height='';ask(v)});
+cq.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('composer').requestSubmit()}});
+cq.addEventListener('input',()=>{cq.style.height='auto';cq.style.height=Math.min(cq.scrollHeight,160)+'px'});
+STARTERS.forEach(s=>document.getElementById('suggest').appendChild(chip(s,()=>ask(s))));
+
+// Voice input with the browser's built-in speech recognition, where available.
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition,mic=document.getElementById('mic');
+if(SR){mic.hidden=false;mic.onclick=()=>{const r=new SR();r.lang=navigator.language||'en-US';r.interimResults=false;mic.classList.add('on');
+  r.onresult=e=>{cq.value=e.results[0][0].transcript;cq.dispatchEvent(new Event('input'))};r.onend=()=>mic.classList.remove('on');r.start()}}
+
+// A question handed over from the homepage (sessionStorage, never the URL).
+let handed=null;try{handed=sessionStorage.getItem('pgq');sessionStorage.removeItem('pgq')}catch(e){}
+if(handed)ask(handed);else cq.focus();
+</script>
+</body>
+</html>

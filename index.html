@@ -153,7 +153,9 @@ const score=c=>{const v=vocab(c);return words.filter(w=>v.some(t=>t.startsWith(w
 const scores=items.map(score),best=Math.max(0,...scores);
 items.forEach((c,i)=>{const hit=!words.length||(best>0&&scores[i]===best);c.hidden=!hit;if(hit)shown++});
 none.style.display=shown?'none':'block'}
-function go(){filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})}
+// Submitting hands the question to the /ask chat page via sessionStorage (never the URL).
+function go(){const v=q.value.trim();if(!v){filter();document.getElementById('all').scrollIntoView({behavior:'smooth'});return}
+ try{sessionStorage.setItem('pgq',v)}catch(e){}location.href='/ask'}
 q.addEventListener('input',filter);
 document.getElementById('askf').addEventListener('submit',go);
 // Example carousel: each question paired with a photo (Unsplash, hotlinked per its license)
