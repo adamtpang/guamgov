@@ -10,26 +10,40 @@
 <link rel="icon" href="favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#012d5c">
-<meta property="og:image" content="https://guamgov.vercel.app/logo-full.png">
+<meta property="og:image" content="https://permitgu.vercel.app/logo-full.png">
+<meta property="og:title" content="PermitGU: Guam permits, one place">
+<link rel="preconnect" href="https://images.unsplash.com">
 <link rel="stylesheet" href="styles.css">
 <script data-posthog-fleet>(function(){if(window.__posthogFleet)return;window.__posthogFleet=1;var s=document.createElement('script');s.async=true;s.src='https://us-assets.i.posthog.com/static/array.js';s.onload=function(){if(!window.posthog||!window.posthog.init)return;window.posthog.init('phc_FCpCP9mIsb9IcxpX0Qqi6FmJ48sVvscAYIrZmtRHIq4',{api_host:'https://us.i.posthog.com',person_profiles:'identified_only',capture_pageview:'history_change',capture_pageleave:true,autocapture:false,disable_session_recording:true,disable_surveys:true,loaded:function(p){p.register({site:location.hostname})}});};document.head.appendChild(s);})();</script>
 </head>
 <body>
 <div class="demo"><strong>Unofficial demo.</strong> Not affiliated with the Government of Guam. Always confirm requirements with the agency before you apply.</div>
-<div class="wrap">
+<section class="hero-panel">
 <nav class="nav"><a class="brand" href="/" aria-label="PermitGU home"><img class="mark" src="logo-mark.png" width="36" height="36" alt=""><span class="wm">Permit<b>GU</b></span><span class="demo-pill">Demo</span></a>
-<span class="navlinks"><a class="hide-sm" href="/how-it-works">How it works</a><a class="pill" href="#all">Browse all</a></span></nav>
+<span class="navlinks"><a class="hide-sm" href="/how-it-works">How it works</a><a class="pill menu" href="#all">Browse all</a></span></nav>
 
-<section class="hero">
-<img class="hero-mark" src="icon-512.png" width="132" height="132" alt="">
-<h1 class="hero-wm">Permit<b>GU</b></h1>
+<div class="hero">
+<h1 class="hero-wm"><img class="hero-mark" src="icon-512.png" width="96" height="96" alt=""><span>Permit<b>GU</b></span></h1>
 <p class="lede">Håfa adai! Whatever you need to build, open, or fix on Guam, start here.</p>
-<form class="ask" id="askf" onsubmit="return false" role="search">
+
+<div class="stage" id="stage">
+<div class="slides" id="slides" aria-hidden="true"></div>
+<form class="ask on-photo" id="askf" onsubmit="return false" role="search">
 <input id="q" type="search" autocomplete="off" placeholder="Describe what you need" aria-label="Describe what you need">
 <button type="submit" aria-label="Search">&rarr;</button>
 </form>
-<p class="try" aria-live="polite">Try &lsquo;<button type="button" id="tryb">I want to start a food truck</button>&rsquo;</p>
+<p class="caption" id="caption"></p>
+</div>
+<div class="ctrls" aria-label="Example questions">
+<button type="button" id="prev" aria-label="Previous example">&lsaquo;</button>
+<button type="button" id="pause" aria-label="Pause examples">&#10074;&#10074;</button>
+<button type="button" id="next" aria-label="Next example">&rsaquo;</button>
+</div>
+<p class="sr-only" id="live" aria-live="polite"></p>
+</div>
 </section>
+
+<div class="wrap">
 
 <section class="sec" id="all" style="padding-top:24px">
 <div class="grid" id="cards">
@@ -92,7 +106,7 @@
 <p class="none" id="none">Nothing for that yet. Try &ldquo;food truck&rdquo;, &ldquo;typhoon&rdquo;, or &ldquo;license&rdquo;.</p>
 </section>
 
-<p class="statement">PermitGU gives simple answers drawn <em>only from official</em> Government of Guam sources. It&rsquo;s free, has no ads, and never asks who you are.</p>
+<p class="statement">PermitGU <span class="ib arrow" aria-hidden="true">&rarr;</span> gives simple answers only from <span class="ib marks" aria-hidden="true"><img src="logo-mark.png" alt=""><i>DPW</i><i>EPA</i></span> official Government of Guam sources. It&rsquo;s free <span class="ib hib" aria-hidden="true">🌺</span>, has no ads, and never asks who you are.</p>
 
 <section class="split">
 <div class="mosaic" aria-hidden="true">
@@ -125,10 +139,15 @@
 <footer class="foot">
 <nav aria-label="Footer"><a href="/how-it-works">How it works</a><a href="/privacy">Privacy</a><a href="/about">About</a></nav>
 <p>PermitGU is an unofficial demo, not affiliated with the Government of Guam, inspired by America.gov and PermitSF. Steps are summarized from official sources and may change, so confirm with the agency before you apply. Not legal advice.</p>
+<p class="credits">Photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> by Ryan Waring, Raze Solar, Josh Olalde, John Esperancilla, Ali Mkumbwa, Built Robotics, Christer Lässman, and yeojin yun.</p>
 </footer>
 </div>
+<form class="dock" id="dockf" onsubmit="return false" role="search" aria-label="Ask PermitGU">
+<input id="dq" type="search" autocomplete="off" placeholder="Ask anything about Guam permits" aria-label="Ask anything about Guam permits">
+<button type="submit" aria-label="Search">&rarr;</button>
+</form>
 <script>
-const q=document.getElementById('q'),items=[...document.querySelectorAll('.card,.svc')],none=document.getElementById('none'),tryb=document.getElementById('tryb');
+const q=document.getElementById('q'),items=[...document.querySelectorAll('.card,.svc')],none=document.getElementById('none');
 const stop=new Set('i a an to my the want need do how start get open for of and or at in on is it me can with'.split(' '));
 const vocab=c=>(c.dataset.k+' '+(c.querySelector('h3,b')||{}).textContent).toLowerCase().split(/[^a-z]+/);
 function filter(){const words=q.value.toLowerCase().split(/[^a-z]+/).filter(w=>w.length>1&&!stop.has(w));let shown=0;
@@ -139,9 +158,34 @@ none.style.display=shown?'none':'block'}
 function go(){filter();document.getElementById('all').scrollIntoView({behavior:'smooth'})}
 q.addEventListener('input',filter);
 document.getElementById('askf').addEventListener('submit',go);
-const tries=['I want to start a food truck','My roof blew off in the typhoon','How do I build a fence?','I need to clear my lot','Renew my driver\'s license','Open a small business','Install a septic tank','Check a contractor\'s license'];
-let ti=0;tryb.onclick=()=>{q.value=tryb.textContent;go()};
-if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{if(document.activeElement===q||q.value)return;ti=(ti+1)%tries.length;tryb.style.opacity=0;setTimeout(()=>{tryb.textContent=tries[ti];tryb.style.opacity=1},350)},3200);
+// Example carousel: each question paired with a photo (Unsplash, hotlinked per its license)
+const U='https://images.unsplash.com/';
+const ex=[
+ ['I want to start a food truck','photo-1565123409695-7b5ef63a2efb','A blue food truck parked on a street'],
+ ['My roof blew off in the typhoon','photo-1635424824849-1b09bdcc55b1','A worker repairing a roof under a blue sky'],
+ ['How do I build a fence or addition?','photo-1587582423116-ec07293f0395','A builder on a wooden house frame'],
+ ['I need to clear my lot','photo-1628645419184-26a1f2757340','An excavator working on rocky ground by the sea'],
+ ['Open a small business','photo-1687422808248-f807f4ea2a2e','A smiling shop owner behind his counter'],
+ ['Install a septic tank','photo-1649807533255-bbc9c9fb7d77','An excavator on a cleared dirt lot'],
+ ['Check a contractor\'s license','photo-1726589004565-bedfba94d3a2','A roofer working on a tiled roof'],
+ ['Renew my driver\'s license','photo-1751543593210-0875e6c939b4','Tumon Bay beach and hotels on a sunny day'],
+];
+const slides=document.getElementById('slides'),caption=document.getElementById('caption'),live=document.getElementById('live'),pauseB=document.getElementById('pause');
+const sizes='(max-width:820px) 92vw, 760px';
+ex.forEach(([t,id,alt],i)=>{const im=document.createElement('img');im.src=U+id+'?w=1200&q=70&auto=format&fit=crop';im.srcset=[480,800,1200,1600].map(w=>U+id+'?w='+w+'&q=70&auto=format&fit=crop '+w+'w').join(', ');im.sizes=sizes;im.alt='';im.loading=i?'lazy':'eager';im.decoding='async';if(!i)im.className='on';slides.appendChild(im)});
+let ti=0,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,timer;
+function show(i){ti=(i+ex.length)%ex.length;[...slides.children].forEach((im,k)=>im.classList.toggle('on',k===ti));
+ if(!q.value)q.placeholder='Try ‘'+ex[ti][0]+'’';caption.textContent=ex[ti][2];live.textContent='Example '+(ti+1)+' of '+ex.length+': '+ex[ti][0]}
+function tick(){clearInterval(timer);if(!paused)timer=setInterval(()=>{if(document.activeElement!==q&&!q.value)show(ti+1)},5000)}
+document.getElementById('prev').onclick=()=>{show(ti-1);tick()};
+document.getElementById('next').onclick=()=>{show(ti+1);tick()};
+pauseB.onclick=()=>{paused=!paused;pauseB.innerHTML=paused?'&#9654;':'&#10074;&#10074;';pauseB.setAttribute('aria-label',paused?'Play examples':'Pause examples');tick()};
+slides.onclick=()=>{q.value=ex[ti][0];go()};
+show(0);tick();
+// Floating ask bar once the hero scrolls away
+const dock=document.getElementById('dockf'),dq=document.getElementById('dq');
+new IntersectionObserver(([e])=>dock.classList.toggle('show',!e.isIntersecting)).observe(document.getElementById('stage'));
+document.getElementById('dockf').addEventListener('submit',()=>{q.value=dq.value;go()});
 </script>
 </body>
 </html>
