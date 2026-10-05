@@ -187,10 +187,10 @@ const scores=items.map(score),best=Math.max(0,...scores);
 items.forEach((c,i)=>{const hit=!words.length||(best>0&&scores[i]===best);c.hidden=!hit;if(hit)shown++});
 none.style.display=shown?'none':'block'}
 // Submitting hands the question to the /ask chat page via sessionStorage (never the URL).
-function go(){const v=q.value.trim();if(!v){filter();document.getElementById('all').scrollIntoView({behavior:'smooth'});return}
- try{sessionStorage.setItem('pgq',v)}catch(e){}location.href='/ask'}
+function go(prompt){const question=prompt.trim();if(!question)return;
+ try{sessionStorage.setItem('pgq',question)}catch(e){}location.href='/ask'}
 q.addEventListener('input',filter);
-document.getElementById('askf').addEventListener('submit',go);
+document.getElementById('askf').addEventListener('submit',()=>go(q.value.trim()||ex[ti][0]));
 // Example carousel: each question paired with a photo (Unsplash, hotlinked per its license)
 const U='https://images.unsplash.com/';
 // Every photo below was taken on Guam (location verified on Unsplash).
@@ -217,13 +217,13 @@ document.getElementById('prev').onclick=()=>{show(ti-1);tick()};
 document.getElementById('next').onclick=()=>{show(ti+1);tick()};
 function syncPause(){pauseB.innerHTML=paused?'&#9654;':'&#10074;&#10074;';pauseB.setAttribute('aria-label',paused?'Play examples':'Pause examples');pauseB.setAttribute('aria-pressed',String(paused))}
 pauseB.onclick=()=>{paused=!paused;syncPause();tick()};
-slides.onclick=()=>{q.value=ex[ti][0];go()};
+slides.onclick=()=>go(ex[ti][0]);
 show(0);syncPause();tick();
 // Floating ask bar once the hero scrolls away
 const dock=document.getElementById('dockf'),dq=document.getElementById('dq');
 dock.inert=true;
 new IntersectionObserver(([e])=>{dock.classList.toggle('show',!e.isIntersecting);dock.inert=e.isIntersecting}).observe(document.getElementById('stage'));
-document.getElementById('dockf').addEventListener('submit',()=>{q.value=dq.value;go()});
+document.getElementById('dockf').addEventListener('submit',()=>go(dq.value));
 </script>
 <script src="menu.js" defer></script>
 </body>

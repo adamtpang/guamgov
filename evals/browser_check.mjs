@@ -73,6 +73,45 @@ try {
   assert.equal(await page.locator('.card:visible').count(), 1);
   assert.equal(await page.locator('#pause').getAttribute('aria-label'), 'Play examples');
   assert.ok(await page.locator('#dockf').evaluate((element) => element.inert));
+  const handoffQuestions = [];
+  await page.route('**/api/ask', async (route) => {
+    handoffQuestions.push(route.request().postDataJSON().q);
+    await route.fulfill({ contentType: 'application/x-ndjson', body: JSON.stringify({ meta: { topic: 'build', sources: [{ title: 'DPW', url: 'https://dpw.guam.gov' }] } }) + '\n' + JSON.stringify({ t: 'Confirm with DPW. [1]' }) + '\n' + JSON.stringify({ done: true }) + '\n' });
+  });
+  let handoffCount = 0;
+  for (const width of [375, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const scenario of [
+      { expected: 'I want to start a food truck' },
+      { next: true, expected: 'My roof blew off in the typhoon' },
+      { typed: 'Can I build a fence?', expected: 'Can I build a fence?' },
+      { enter: true, expected: 'I want to start a food truck' },
+      { next: true, typed: '   ', expected: 'My roof blew off in the typhoon' },
+      { image: true, next: true, expected: 'My roof blew off in the typhoon' },
+      { dock: true, typed: 'Check my zoning', expected: 'Check my zoning' },
+    ]) {
+      await page.goto(base);
+      if (scenario.next) await page.locator('#next').click();
+      const input = page.locator(scenario.dock ? '#dq' : '#q');
+      if (scenario.dock) {
+        await page.locator('#all').scrollIntoViewIfNeeded();
+        await page.waitForFunction(() => !document.getElementById('dockf').inert);
+      }
+      if (scenario.typed) await input.fill(scenario.typed);
+      if (scenario.enter) await input.press('Enter');
+      else if (scenario.image) await page.locator('#slides').click();
+      else await page.locator(`${scenario.dock ? '#dockf' : '#askf'} button[type="submit"]`).click();
+      await page.waitForURL(base + '/ask');
+      await page.locator('.sources').waitFor();
+      assert.equal(handoffQuestions.length, ++handoffCount, 'One AI request per submission');
+      assert.equal(handoffQuestions.at(-1), scenario.expected, `Prompt handoff at ${width}px`);
+      assert.equal(await page.locator('.msg.you').textContent(), scenario.expected);
+      assert.equal(await page.evaluate(() => sessionStorage.getItem('pgq')), null);
+      assert.equal(new URL(page.url()).search, '', 'Question stays out of the URL');
+    }
+  }
+  await page.unroute('**/api/ask');
+  await page.setViewportSize({ width: 375, height: 812 });
   await page.goto(base + '/corrections?topic=Zoning');
   let submissions = 0;
   page.on('request', (request) => { if (request.method() === 'POST') submissions++; });
@@ -106,7 +145,7 @@ try {
     await page.screenshot({ path: path.join(process.env.SCREENSHOT_DIR, 'permitgu-desktop.png'), fullPage: true });
   }
   await context.close();
-  console.log(`${count} responsive page checks passed; menu, filtering, correction privacy, and stream recovery passed.`);
+  console.log(`${count} responsive page checks and ${handoffCount} prompt handoffs passed; menu, filtering, correction privacy, and stream recovery passed.`);
 } finally {
   if (browser) await browser.close();
   server.kill();
